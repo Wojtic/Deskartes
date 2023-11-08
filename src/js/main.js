@@ -7,11 +7,18 @@ let app = new PIXI.Application({
 });
 document.querySelector("#game").appendChild(app.view);
 
-createBubble(app, "", "", "");
-
 window.onresize = () => {
   // Na tohle bych se asi vykašlal, prostě jaké to načteš, takové to máš
   let [newWidth, newHeight] = getWidthHeight();
   if (newWidth != app.view.width) app.renderer.resize(newWidth, newHeight);
   [vw, vh] = [app.view.width / 100, app.view.height / 100];
 };
+
+// Testovací věci
+
+createBubble(
+  app,
+  "./media/beckova.png",
+  "Tady je odbočka, bohužel do Brna teda.",
+  ""
+);

@@ -1,17 +1,33 @@
+const charsPerLine = 150;
+const BORDER = 40;
+
 function createBubble(app, head, text, type) {
-  //text =
-  //"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis bibendum, lectus ut viverra rhoncus, dolor nunc faucibus libero, eget facilisis enim ipsum id lacus. Fusce suscipit libero eget elit. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Praesent vitae arcu tempor neque lacinia pretium. Quis autem vel eum iure reprehenderit";
-  const text = new PIXI.Text("This is a PixiJS text", {
+  const rectHeight = 2 * BORDER + 35 * Math.ceil(text.length / charsPerLine);
+
+  const hlava = PIXI.Sprite.from(head);
+  const scale = (20 * vw) / hlava.width;
+  hlava.width *= scale;
+  hlava.height *= scale;
+  hlava.x = BORDER / 2;
+  hlava.y = 100 * vh - rectHeight - hlava.height;
+
+  const textBox = new PIXI.Text(text, {
     fontFamily: "Arial",
-    fontSize: 24,
-    fill: 0xff1010,
+    fontSize: 30,
+    fill: 0x000000,
     align: "center",
-    width: 90 * vw,
+    wordWrap: true,
+    wordWrapWidth: 100 * vw - BORDER * 2,
   });
+  textBox.x = BORDER;
+  textBox.y = 100 * vh - rectHeight + BORDER;
+
   let rect = new PIXI.Graphics();
   rect.beginFill(0xffffff);
-  rect.drawRect(0, 0, 100 * vh, 100);
+  rect.drawRect(0, 100 * vh - rectHeight, 100 * vw, rectHeight);
   rect.alpha = 1;
+
   app.stage.addChild(rect);
-  app.stage.addChild(rect);
+  app.stage.addChild(textBox);
+  app.stage.addChild(hlava);
 }
