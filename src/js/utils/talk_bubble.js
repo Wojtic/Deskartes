@@ -1,10 +1,15 @@
 const charsPerLine = 150;
 const BORDER = 40;
 
-function createBubble(app, head, text, type) {
-  const rectHeight = 2 * BORDER + 35 * Math.ceil(text.length / charsPerLine);
+function createBubble(head, text, type) {
+  head = `./media/hlavy/${head}.png`;
 
-  const hlava = PIXI.Sprite.from(head);
+  const Bubble = new PIXI.Container();
+
+  const rectHeight = 2 * BORDER + 35 * Math.ceil(text.length / charsPerLine);
+  const texture = PIXI.Texture.from(head);
+  const hlava = new PIXI.Sprite(texture);
+  console.log(hlava.width, hlava.height);
   const scale = (20 * vw) / hlava.width;
   hlava.width *= scale;
   hlava.height *= scale;
@@ -27,7 +32,15 @@ function createBubble(app, head, text, type) {
   rect.drawRect(0, 100 * vh - rectHeight, 100 * vw, rectHeight);
   rect.alpha = 1;
 
-  app.stage.addChild(rect);
-  app.stage.addChild(textBox);
-  app.stage.addChild(hlava);
+  Bubble.addChild(rect);
+  Bubble.addChild(textBox);
+  Bubble.addChild(hlava);
+
+  Bubble.eventMode = "static";
+  Bubble.cursor = "pointer";
+  Bubble.on("pointerdown", () => {
+    Bubble.destroy();
+  });
+
+  return Bubble;
 }

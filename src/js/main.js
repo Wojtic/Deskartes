@@ -16,9 +16,7 @@ window.onresize = () => {
 
 // Testovací věci
 
-createBubble(
-  app,
-  "./media/beckova.png",
-  "Tady je odbočka, bohužel do Brna teda.",
-  ""
-);
+const hlaska = HLASKY[0];
+let bublina = createBubble(hlaska.person, hlaska.text, "");
+
+app.stage.addChild(bublina);

@@ -1,4 +1,4 @@
-const hlasky = [
+const HLASKY = [
   {
     person: "molt",
     title: "brno",
@@ -13,5 +13,10 @@ const hlasky = [
     person: "gregorova",
     title: "dobry",
     text: "Dobrý je pro dneska pořád dobrý.",
+  },
+  {
+    person: "filipik",
+    title: "risk",
+    text: "Tak já to teda risknu!",
   },
 ];
