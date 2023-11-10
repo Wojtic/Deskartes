@@ -62,6 +62,67 @@
       ]
     },
     {
+      "name": "hlavy_okraje",
+      "assets": [
+        {
+          "name": "beckova_okraj",
+          "srcs": "media/hlavy_okraj/beckova.png"
+        },
+        {
+          "name": "bustova_okraj",
+          "srcs": "media/hlavy_okraj/bustova.png"
+        },
+        {
+          "name": "filipik_okraj",
+          "srcs": "media/hlavy_okraj/filipik.png"
+        },
+        {
+          "name": "hovorka_okraj",
+          "srcs": "media/hlavy_okraj/hovorka.png"
+        },
+        {
+          "name": "hruba_okraj",
+          "srcs": "media/hlavy_okraj/hruba.png"
+        },
+        {
+          "name": "janisova_okraj",
+          "srcs": "media/hlavy_okraj/janisova.png"
+        },
+        {
+          "name": "kocianova_okraj",
+          "srcs": "media/hlavy_okraj/kocianova.png"
+        },
+        {
+          "name": "korbeliusova_okraj",
+          "srcs": "media/hlavy_okraj/korbeliusova.png"
+        },
+        {
+          "name": "matousek_okraj",
+          "srcs": "media/hlavy_okraj/matousek.png"
+        },
+        {
+          "name": "molt_okraj",
+          "srcs": "media/hlavy_okraj/molt.png"
+        },
+        {
+          "name": "pulec_okraj",
+          "srcs": "media/hlavy_okraj/pulec.png"
+        },
+        {
+          "name": "ruzicka_okraj",
+          "srcs": "media/hlavy_okraj/ruzicka.png"
+        },
+        {
+          "name": "velensky_okraj",
+          "srcs": "media/hlavy_okraj/velensky.png"
+        },
+        {
+          "name": "zdarek_okraj",
+          "srcs": "media/hlavy_okraj/zdarek.png"
+        }
+      ]
+    },
+    {
       "name": "game-screen",
       "assets": [
         {

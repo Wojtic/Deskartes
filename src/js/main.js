@@ -15,22 +15,28 @@ window.onresize = () => {
 };
 
 let hlavy_textury;
+let hlavy_okraje_textury;
 let hlasky;
 
 async function load() {
   await PIXI.Assets.init({ manifest: "src/data/manifest.json" });
 
   hlavy_textury = await PIXI.Assets.loadBundle("hlavy");
+  hlavy_okraje_textury = await PIXI.Assets.loadBundle("hlavy_okraje");
   hlasky = await fetch("src/data/hlasky.json");
   hlasky = await hlasky.json();
 }
 
-// Testovací věci
-
 async function main() {
   await load();
+
+  // Testovací věci
   const hlaska = hlasky[Math.floor(Math.random() * hlasky.length)];
-  let bublina = createBubble(hlavy_textury[hlaska.person], hlaska.text, "");
+  let bublina = createBubble(
+    hlavy_okraje_textury[hlaska.person],
+    hlaska.text,
+    ""
+  );
   app.stage.addChild(bublina);
 }
 
