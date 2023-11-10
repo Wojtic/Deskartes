@@ -1,18 +1,12 @@
 const charsPerLine = 150;
 const BORDER = 40;
 
-function createBubble(head, text, type) {
-  head = `./media/hlavy/${head}.png`;
-
+function createBubble(head_texture, text, type) {
   const Bubble = new PIXI.Container();
 
   const rectHeight = 2 * BORDER + 35 * Math.ceil(text.length / charsPerLine);
-  const texture = PIXI.Texture.from(head);
-  const hlava = new PIXI.Sprite(texture);
-  console.log(hlava.width, hlava.height);
-  const scale = (20 * vw) / hlava.width;
-  hlava.width *= scale;
-  hlava.height *= scale;
+  const hlava = new PIXI.Sprite(head_texture);
+  hlava.scale.set((20 * vw) / hlava.width);
   hlava.x = BORDER / 2;
   hlava.y = 100 * vh - rectHeight - hlava.height;
 

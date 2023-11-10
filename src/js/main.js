@@ -14,9 +14,35 @@ window.onresize = () => {
   [vw, vh] = [app.view.width / 100, app.view.height / 100];
 };
 
+const postavy = [
+  "beckova",
+  "bustova",
+  "filipik",
+  "hovorka",
+  "hruba",
+  "janisova",
+  "kocianova",
+  "korbeliusova",
+  "matousek",
+  "molt",
+  "pulec",
+  "ruzicka",
+  "velensky",
+  "zdarek",
+];
+
+const loader = PIXI.loader;
+
+postavy.forEach((element) => {
+  PIXI.Assets.add(element, `media/hlavy/${element}.png`);
+});
+
+PIXI.Assets.load(postavy).then(main);
+
 // Testovací věci
 
-const hlaska = HLASKY[0];
-let bublina = createBubble(hlaska.person, hlaska.text, "");
-
-app.stage.addChild(bublina);
+function main(textures) {
+  const hlaska = HLASKY[3];
+  let bublina = createBubble(textures[hlaska.person], hlaska.text, "");
+  app.stage.addChild(bublina);
+}
