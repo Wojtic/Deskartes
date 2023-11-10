@@ -18,24 +18,20 @@ let hlavy_textury;
 let hlasky;
 
 async function load() {
-  /*postavy.forEach((element) => {
-    PIXI.Assets.add(element, `media/hlavy/${element}.png`);
-  });*/
-
   await PIXI.Assets.init({ manifest: "src/data/manifest.json" });
 
   hlavy_textury = await PIXI.Assets.loadBundle("hlavy");
-  console.log(hlavy_textury);
   hlasky = await fetch("src/data/hlasky.json");
   hlasky = await hlasky.json();
 }
 
-load().then(main);
-
 // Testovací věci
 
-function main() {
+async function main() {
+  await load();
   const hlaska = hlasky[Math.floor(Math.random() * hlasky.length)];
   let bublina = createBubble(hlavy_textury[hlaska.person], hlaska.text, "");
   app.stage.addChild(bublina);
 }
+
+main();
