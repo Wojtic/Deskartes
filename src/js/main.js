@@ -14,35 +14,28 @@ window.onresize = () => {
   [vw, vh] = [app.view.width / 100, app.view.height / 100];
 };
 
-const postavy = [
-  "beckova",
-  "bustova",
-  "filipik",
-  "hovorka",
-  "hruba",
-  "janisova",
-  "kocianova",
-  "korbeliusova",
-  "matousek",
-  "molt",
-  "pulec",
-  "ruzicka",
-  "velensky",
-  "zdarek",
-];
+let hlavy_textury;
+let hlasky;
 
-const loader = PIXI.loader;
+async function load() {
+  /*postavy.forEach((element) => {
+    PIXI.Assets.add(element, `media/hlavy/${element}.png`);
+  });*/
 
-postavy.forEach((element) => {
-  PIXI.Assets.add(element, `media/hlavy/${element}.png`);
-});
+  await PIXI.Assets.init({ manifest: "src/data/manifest.json" });
 
-PIXI.Assets.load(postavy).then(main);
+  hlavy_textury = await PIXI.Assets.loadBundle("hlavy");
+  console.log(hlavy_textury);
+  hlasky = await fetch("src/data/hlasky.json");
+  hlasky = await hlasky.json();
+}
+
+load().then(main);
 
 // Testovací věci
 
-function main(textures) {
-  const hlaska = HLASKY[3];
-  let bublina = createBubble(textures[hlaska.person], hlaska.text, "");
+function main() {
+  const hlaska = hlasky[Math.floor(Math.random() * hlasky.length)];
+  let bublina = createBubble(hlavy_textury[hlaska.person], hlaska.text, "");
   app.stage.addChild(bublina);
 }

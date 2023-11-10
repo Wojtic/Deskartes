@@ -1,0 +1,78 @@
+{
+  "bundles": [
+    {
+      "name": "hlavy",
+      "assets": [
+        {
+          "name": "beckova",
+          "srcs": "media/hlavy/beckova.png"
+        },
+        {
+          "name": "bustova",
+          "srcs": "media/hlavy/bustova.png"
+        },
+        {
+          "name": "filipik",
+          "srcs": "media/hlavy/filipik.png"
+        },
+        {
+          "name": "hovorka",
+          "srcs": "media/hlavy/hovorka.png"
+        },
+        {
+          "name": "hruba",
+          "srcs": "media/hlavy/hruba.png"
+        },
+        {
+          "name": "janisova",
+          "srcs": "media/hlavy/janisova.png"
+        },
+        {
+          "name": "kocianova",
+          "srcs": "media/hlavy/kocianova.png"
+        },
+        {
+          "name": "korbeliusova",
+          "srcs": "media/hlavy/korbeliusova.png"
+        },
+        {
+          "name": "matousek",
+          "srcs": "media/hlavy/matousek.png"
+        },
+        {
+          "name": "molt",
+          "srcs": "media/hlavy/molt.png"
+        },
+        {
+          "name": "pulec",
+          "srcs": "media/hlavy/pulec.png"
+        },
+        {
+          "name": "ruzicka",
+          "srcs": "media/hlavy/ruzicka.png"
+        },
+        {
+          "name": "velensky",
+          "srcs": "media/hlavy/velensky.png"
+        },
+        {
+          "name": "zdarek",
+          "srcs": "media/hlavy/zdarek.png"
+        }
+      ]
+    },
+    {
+      "name": "game-screen",
+      "assets": [
+        {
+          "name": "character",
+          "srcs": "robot.png"
+        },
+        {
+          "name": "enemy",
+          "srcs": "bad-guy.png"
+        }
+      ]
+    }
+  ]
+}

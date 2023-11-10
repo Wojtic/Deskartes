@@ -1,4 +1,4 @@
-const charsPerLine = 150;
+const charsPerLine = 100;
 const BORDER = 40;
 
 function createBubble(head_texture, text, type) {
