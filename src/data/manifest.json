@@ -123,15 +123,36 @@
       ]
     },
     {
-      "name": "game-screen",
+      "name": "welcome-screen",
       "assets": [
         {
-          "name": "character",
-          "srcs": "robot.png"
+          "name": "backdrop",
+          "srcs": "media/prostredi/backdrop.png"
         },
         {
-          "name": "enemy",
-          "srcs": "bad-guy.png"
+          "name": "filipik",
+          "srcs": "media/hlavy_okraj/filipik.png"
+        },
+        {
+          "name": "btn_enter",
+          "srcs": "media/tlacitka/btn_enter.png"
+        }
+      ]
+    },
+    {
+      "name": "welcome-screen",
+      "assets": [
+        {
+          "name": "backdrop",
+          "srcs": "media/prostredi/backdrop.png"
+        },
+        {
+          "name": "filipik",
+          "srcs": "media/hlavy_okraj/filipik.png"
+        },
+        {
+          "name": "btn_enter",
+          "srcs": "media/tlacitka/btn_enter.png"
         }
       ]
     }
