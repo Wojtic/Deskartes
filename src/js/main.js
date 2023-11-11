@@ -33,7 +33,7 @@ async function main() {
   // Testovací věci
   const hlaska = hlasky[Math.floor(Math.random() * hlasky.length)];
   let bublina = createBubble(
-    hlavy_okraje_textury[hlaska.person],
+    hlavy_okraje_textury[hlaska.person + "_okraj"],
     hlaska.text,
     ""
   );
