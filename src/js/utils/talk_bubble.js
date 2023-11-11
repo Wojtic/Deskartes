@@ -8,8 +8,9 @@ function createBubble(head_texture, text, type) {
   const hlava = new PIXI.Sprite(head_texture);
   hlava.scale.set((20 * vw) / hlava.width);
   hlava.x = BORDER / 2;
-  hlava.y = 100 * vh - rectHeight - hlava.height;
+  hlava.y = 100 * vh - rectHeight - hlava.height - BORDER / 2;
 
+  // https://pixijs.com/examples/text/pixi-text
   const textBox = new PIXI.Text(text, {
     fontFamily: "Arial",
     fontSize: 30,
