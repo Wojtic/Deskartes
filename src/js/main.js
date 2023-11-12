@@ -1,5 +1,8 @@
+import { createBubble } from "./utils/talk_bubble.js";
+import { getWidthHeight } from "./utils/utils.js";
+
 let [width, height] = getWidthHeight();
-[vw, vh] = [width / 100, height / 100];
+export let [vw, vh] = [width / 100, height / 100];
 let app = new PIXI.Application({
   background: "#015876",
   width: width,

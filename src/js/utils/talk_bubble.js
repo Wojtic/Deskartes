@@ -1,7 +1,9 @@
+import { vw, vh } from "../main.js";
+
 const charsPerLine = 100;
 const BORDER = 40;
 
-function createBubble(head_texture, text, type) {
+export function createBubble(head_texture, text, type) {
   const Bubble = new PIXI.Container();
 
   const rectHeight = 2 * BORDER + 35 * Math.ceil(text.length / charsPerLine);

@@ -140,19 +140,11 @@
       ]
     },
     {
-      "name": "welcome-screen",
+      "name": "main-screen",
       "assets": [
         {
-          "name": "backdrop",
-          "srcs": "media/prostredi/backdrop.png"
-        },
-        {
-          "name": "filipik",
-          "srcs": "media/hlavy_okraj/filipik.png"
-        },
-        {
-          "name": "btn_enter",
-          "srcs": "media/tlacitka/btn_enter.png"
+          "name": "main",
+          "srcs": "media/prostredi/main.png"
         }
       ]
     }

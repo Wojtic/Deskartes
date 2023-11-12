@@ -1,6 +1,4 @@
-let vw, vh;
-
-function getWidthHeight() {
+export function getWidthHeight() {
   let width, height;
   if (window.innerWidth * (9 / 16) > window.innerHeight) {
     height = window.innerHeight;
