@@ -140,11 +140,27 @@
       ]
     },
     {
-      "name": "main-screen",
+      "name": "lobby_screen",
       "assets": [
         {
-          "name": "main",
-          "srcs": "media/prostredi/main.png"
+          "name": "lobby",
+          "srcs": "media/prostredi/lobby.png"
+        },
+        {
+          "name": "tbl_tictac",
+          "srcs": "media/tlacitka/tbl_tictac.png"
+        },
+        {
+          "name": "tbl_roulette",
+          "srcs": "media/tlacitka/tbl_roulette.png"
+        },
+        {
+          "name": "tbl_placeholder",
+          "srcs": "media/tlacitka/tbl_placeholder.png"
+        },
+        {
+          "name": "game_menu",
+          "srcs": "media/tlacitka/game_menu.png"
         }
       ]
     }

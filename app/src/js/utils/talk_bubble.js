@@ -1,4 +1,5 @@
 import { vw, vh } from "../main.js";
+import { getDarkener } from "./utils.js";
 
 const charsPerLine = 100;
 const BORDER = 40;
@@ -29,13 +30,7 @@ export function createBubble(head_texture, text, type) {
   rect.drawRect(0, 100 * vh - rectHeight, 100 * vw, rectHeight);
   rect.alpha = 1;
 
-  if (type && type.darken) {
-    let dark = new PIXI.Graphics();
-    dark.beginFill(0x000000);
-    dark.drawRect(0, 0, 100 * vw, 100 * vh);
-    dark.alpha = 0.3;
-    Bubble.addChild(dark);
-  }
+  if (type && type.darken) Bubble.addChild(getDarkener());
 
   Bubble.addChild(rect);
   Bubble.addChild(textBox);

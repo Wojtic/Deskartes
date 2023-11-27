@@ -28,6 +28,7 @@ let hlavy_textury;
 let hlavy_okraje_textury;
 let hlasky;
 export let enterance_textury;
+export let lobby_textury;
 
 async function load() {
   await PIXI.Assets.init({ manifest: "src/data/manifest.json" });
@@ -43,13 +44,15 @@ async function load_hlavy() {
 
 async function main() {
   await load();
-  const vstup = await createEnterance((jmeno, VIP) => {
+  const vstup = await createEnterance(async (jmeno, VIP) => {
     hrac.jmeno = jmeno;
     hrac.VIP = VIP;
     vstup.destroy();
-    createLobby();
+    const lobby = await createLobby();
+    app.stage.addChild(lobby);
   });
   app.stage.addChild(vstup);
+  lobby_textury = await PIXI.Assets.loadBundle("lobby_screen");
   await load_hlavy();
 
   // Testovací věci
