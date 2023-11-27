@@ -34,6 +34,9 @@ async function main() {
   await load();
 
   // Testovací věci
+
+  const socket = io("ws://localhost:8080");
+
   const hlaska = hlasky[Math.floor(Math.random() * hlasky.length)];
   let bublina = createBubble(
     hlavy_okraje_textury[hlaska.person + "_okraj"],
