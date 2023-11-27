@@ -123,7 +123,7 @@
       ]
     },
     {
-      "name": "welcome-screen",
+      "name": "welcome_screen",
       "assets": [
         {
           "name": "backdrop",
@@ -135,7 +135,7 @@
         },
         {
           "name": "btn_enter",
-          "srcs": "media/tlacitka/btn_enter.png"
+          "srcs": "media/tlacitka/vstup.png"
         }
       ]
     },
