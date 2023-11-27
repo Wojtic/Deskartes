@@ -29,6 +29,14 @@ export function createBubble(head_texture, text, type) {
   rect.drawRect(0, 100 * vh - rectHeight, 100 * vw, rectHeight);
   rect.alpha = 1;
 
+  if (type && type.darken) {
+    let dark = new PIXI.Graphics();
+    dark.beginFill(0x000000);
+    dark.drawRect(0, 0, 100 * vw, 100 * vh);
+    dark.alpha = 0.3;
+    Bubble.addChild(dark);
+  }
+
   Bubble.addChild(rect);
   Bubble.addChild(textBox);
   Bubble.addChild(hlava);
@@ -36,7 +44,17 @@ export function createBubble(head_texture, text, type) {
   Bubble.eventMode = "static";
   Bubble.cursor = "pointer";
   Bubble.on("pointerdown", () => {
-    Bubble.destroy();
+    if (type) {
+      if (type.type == "input") {
+        try {
+          textBox.destroy();
+        } catch (TypeError) {
+          if (type.text_auth("ZADANY TEXT (TODO)")) Bubble.destroy();
+        }
+      }
+    } else {
+      Bubble.destroy();
+    }
   });
 
   return Bubble;
