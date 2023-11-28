@@ -47,8 +47,8 @@ async function main() {
   const vstup = await createEnterance(async (jmeno, VIP) => {
     hrac.jmeno = jmeno;
     hrac.VIP = VIP;
-    vstup.destroy();
     const lobby = await createLobby();
+    vstup.destroy();
     app.stage.addChild(lobby);
   });
   app.stage.addChild(vstup);
