@@ -1,6 +1,7 @@
 import { lobby_textury, vw, vh } from "../main.js";
 import { getDarkener } from "./utils.js";
 import { tictac } from "../games/tictac.js";
+import { slots } from "../games/slots.js";
 
 function textureToSprite(name, x, y, scale_x, clickable = false) {
   const newSprite = new PIXI.Sprite(lobby_textury[name]);
@@ -16,7 +17,7 @@ function textureToSprite(name, x, y, scale_x, clickable = false) {
   return newSprite;
 }
 
-export async function createLobby() {
+export async function createLobby(onGameEntry) {
   const Lobby = new PIXI.Container();
 
   const background = textureToSprite("lobby", 50, 50, 100);
@@ -30,9 +31,13 @@ export async function createLobby() {
   Lobby.addChild(tbl_roulette);
   Lobby.addChild(tbl_placeholder);
 
-  tbl_tictac.on("pointerdown", () => createGameMenu(Lobby, tictac));
+  tbl_tictac.on("pointerdown", () =>
+    createGameMenu(Lobby, tictac, onGameEntry)
+  );
   //tbl_roulette.on("pointerdown", () => createGameMenu(Lobby, "Ruleta"));
-  //tbl_placeholder.on("pointerdown", () => createGameMenu(Lobby, "Něco"));
+  tbl_placeholder.on("pointerdown", () =>
+    createGameMenu(Lobby, slots, onGameEntry)
+  );
 
   return Lobby;
 }
@@ -40,7 +45,7 @@ export async function createLobby() {
 let selectedGame;
 let online = true;
 
-async function createGameMenu(stage, game) {
+async function createGameMenu(stage, game, onGameEntry) {
   selectedGame = game.menu_items[0].game;
   const Menu = new PIXI.Container();
   Menu.eventMode = "static";
@@ -85,7 +90,7 @@ async function createGameMenu(stage, game) {
     online = false;
   });
   play_btn.on("pointerdown", () => {
-    if (selectedGame) selectedGame(online);
+    if (selectedGame) onGameEntry(selectedGame, online);
   });
 
   Menu.addChild(online_btn);
