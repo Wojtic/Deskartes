@@ -161,6 +161,26 @@
         {
           "name": "game_menu",
           "srcs": "media/tlacitka/game_menu.png"
+        },
+        {
+          "name": "online",
+          "srcs": "media/tlacitka/online.png"
+        },
+        {
+          "name": "computer",
+          "srcs": "media/tlacitka/computer.png"
+        },
+        {
+          "name": "play",
+          "srcs": "media/tlacitka/play.png"
+        },
+        {
+          "name": "tictac_three",
+          "srcs": "media/tlacitka/tictac_three.png"
+        },
+        {
+          "name": "tictac_infinity",
+          "srcs": "media/tlacitka/tictac_infinity.png"
         }
       ]
     }
