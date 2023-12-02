@@ -22,7 +22,7 @@ export async function createEnterance(onEnterance) {
   btn_enter.cursor = "pointer";
   btn_enter.on("pointerdown", () =>
     authenticate(Enterance, (jmeno) => {
-      let isVIP = true;
+      let isVIP = jmeno == "abc";
       onEnterance(jmeno, isVIP);
     })
   );
@@ -37,8 +37,11 @@ function authenticate(stage, ondone) {
       type: "input",
       darken: true,
       text_auth: (text) => {
-        ondone(text);
-        return text == "ZADANY TEXT (TODO)";
+        if (text.length > 1) {
+          ondone(text);
+          return true;
+        }
+        return false;
       },
     }
   );

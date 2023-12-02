@@ -4,6 +4,8 @@ import { getDarkener } from "./utils.js";
 const charsPerLine = 100;
 const BORDER = 40;
 
+let hasInput = false;
+
 export function createBubble(head_texture, text, type) {
   const Bubble = new PIXI.Container();
 
@@ -41,10 +43,8 @@ export function createBubble(head_texture, text, type) {
   Bubble.on("pointerdown", () => {
     if (type) {
       if (type.type == "input") {
-        try {
-          textBox.destroy();
-        } catch (TypeError) {
-          if (type.text_auth("ZADANY TEXT (TODO)")) Bubble.destroy();
+        if (!hasInput) {
+          bindInput(textBox, 50, checkInput);
         }
       }
     } else {
@@ -52,5 +52,29 @@ export function createBubble(head_texture, text, type) {
     }
   });
 
+  function checkInput(name) {
+    if (type.text_auth(name)) return Bubble.destroy();
+    else bindInput(textBox, 50, checkInput);
+  }
+
   return Bubble;
+}
+
+async function bindInput(textBox, maxLength = 50, onenter) {
+  let input_text = "";
+  hasInput = true;
+  textBox.text = input_text;
+  window.addEventListener("keydown", handleKeydown);
+  function handleKeydown(e) {
+    if (e.key.length == 1 && input_text.length < maxLength) {
+      input_text += e.key;
+      textBox.text = input_text;
+    } else if (e.key == "Backspace") {
+      input_text = input_text.slice(0, -1);
+      textBox.text = input_text;
+    } else if (e.key == "Enter") {
+      window.removeEventListener("keydown", handleKeydown);
+      return onenter(input_text);
+    }
+  }
 }
