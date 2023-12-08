@@ -2,6 +2,7 @@ import { createBubble } from "./utils/talk_bubble.js";
 import { getWidthHeight } from "./utils/utils.js";
 import { createEnterance } from "./utils/enterance.js";
 import { createLobby } from "./utils/lobby.js";
+import { createTicTacThree } from "./games/tictac.js";
 
 export let hrac = {
   jmeno: "",
@@ -29,6 +30,8 @@ let hlavy_okraje_textury;
 let hlasky;
 export let enterance_textury;
 export let lobby_textury;
+
+export let tictac_textury;
 
 async function load() {
   await PIXI.Assets.init({ manifest: "src/data/manifest.json" });
@@ -59,6 +62,7 @@ async function main() {
   });
   app.stage.addChild(vstup);
   lobby_textury = await PIXI.Assets.loadBundle("lobby_screen");
+  tictac_textury = await PIXI.Assets.loadBundle("tictac");
   await load_hlavy();
 
   // Testovací věci

@@ -183,6 +183,15 @@
           "srcs": "media/tlacitka/tictac_infinity.png"
         }
       ]
+    },
+    {
+      "name": "tictac",
+      "assets": [
+        {
+          "name": "three_grid",
+          "srcs": "media/prostredi/tictacThreeGrid.png"
+        }
+      ]
     }
   ]
 }

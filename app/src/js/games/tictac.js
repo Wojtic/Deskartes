@@ -1,4 +1,7 @@
-import { vw, vh } from "../main.js";
+import { vw, vh, tictac_textury } from "../main.js";
+
+let onTurn = true;
+let grid;
 
 export const tictac = {
   name: "Piškvorky",
@@ -13,6 +16,14 @@ export const tictac = {
     },
   ],
 };
+
+function turn() {
+  grid.on("mousemove", (e) => {
+    let pos = e.data.getLocalPosition(grid);
+    console.log(pos["x"] / grid.width);
+  });
+}
+
 export async function createTicTacThree(online) {
   const Game = new PIXI.Container();
   const white = new PIXI.Graphics();
@@ -20,8 +31,18 @@ export async function createTicTacThree(online) {
   white.drawRect(0, 0, 100 * vw, 100 * vh);
   white.alpha = 1;
 
+  grid = new PIXI.Sprite(tictac_textury["three_grid"]);
+  grid.scale.set((80 * vh) / grid.height);
+  grid.anchor.set(0.5);
+  grid.x = 50 * vw;
+  grid.y = 50 * vh;
+  grid.interactive = true;
+
+  if (onTurn) turn();
+
   console.log("tady", online);
   Game.addChild(white);
+  Game.addChild(grid);
   return Game;
 }
 
