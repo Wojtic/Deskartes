@@ -190,6 +190,14 @@
         {
           "name": "three_grid",
           "srcs": "media/prostredi/tictacThreeGrid.png"
+        },
+        {
+          "name": "X",
+          "srcs": "media/hlavy_okraj/hovorka.png"
+        },
+        {
+          "name": "Y",
+          "srcs": "media/hlavy_okraj/filipik.png"
         }
       ]
     }

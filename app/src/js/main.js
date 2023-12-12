@@ -47,6 +47,14 @@ async function load_hlavy() {
 
 async function main() {
   await load();
+
+  /* Smazat!*/
+  tictac_textury = await PIXI.Assets.loadBundle("tictac");
+  await load_hlavy();
+  let piskovrky = await createTicTacThree(true);
+  app.stage.addChild(piskovrky);
+  /*
+
   const vstup = await createEnterance(async (jmeno, VIP) => {
     hrac.jmeno = jmeno;
     hrac.VIP = VIP;
@@ -68,14 +76,7 @@ async function main() {
   // Testovací věci
 
   //const socket = io("ws://localhost:8080");
-  /*
-  const hlaska = hlasky[Math.floor(Math.random() * hlasky.length)];
-  let bublina = createBubble(
-    hlavy_okraje_textury[hlaska.person + "_okraj"],
-    hlaska.text,
-    ""
-  );
-  app.stage.addChild(bublina);*/
+  */
 }
 
 main();
