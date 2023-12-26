@@ -8,6 +8,7 @@ export let hrac = {
   jmeno: "",
   VIP: false,
 };
+export const socket = io("ws://localhost:8080");
 
 let [width, height] = getWidthHeight();
 export let [vw, vh] = [width / 100, height / 100];
@@ -48,16 +49,17 @@ async function load_hlavy() {
 async function main() {
   await load();
 
-  /* Smazat!*/
+  /* Smazat!
   tictac_textury = await PIXI.Assets.loadBundle("tictac");
   await load_hlavy();
   let piskovrky = await createTicTacThree(true);
   app.stage.addChild(piskovrky);
-  /*
+  */
 
   const vstup = await createEnterance(async (jmeno, VIP) => {
     hrac.jmeno = jmeno;
     hrac.VIP = VIP;
+    socket.emit("login", hrac.jmeno, hrac.VIP);
 
     const lobby = await createLobby(async (game, online) => {
       const hra = await game(online);
@@ -72,11 +74,6 @@ async function main() {
   lobby_textury = await PIXI.Assets.loadBundle("lobby_screen");
   tictac_textury = await PIXI.Assets.loadBundle("tictac");
   await load_hlavy();
-
-  // Testovací věci
-
-  //const socket = io("ws://localhost:8080");
-  */
 }
 
 main();
