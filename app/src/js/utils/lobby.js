@@ -1,5 +1,5 @@
 import { lobby_textury, vw, vh } from "../main.js";
-import { getDarkener } from "./utils.js";
+import { getDarkener, getSlider } from "./utils.js";
 import { tictac } from "../games/tictac.js";
 import { slots } from "../games/slots.js";
 
@@ -92,6 +92,13 @@ async function createGameMenu(stage, game, onGameEntry) {
   play_btn.on("pointerdown", () => {
     if (selectedGame) onGameEntry(selectedGame, online);
   });
+
+  // ----------------------------------------- Sazky
+  Menu.addChild(
+    getSlider(100, 100, 200, Menu, 30, 100, (val) => {
+      console.log(val);
+    })
+  );
 
   Menu.addChild(online_btn);
   Menu.addChild(computer_btn);
