@@ -24,12 +24,14 @@ let hlavy_okraje_textury;
 let hlasky;
 export let enterance_textury;
 export let lobby_textury;
+export let tlacitka_textury;
 
 export let tictac_textury;
 
 async function load() {
   await PIXI.Assets.init({ manifest: "src/data/manifest.json" });
   enterance_textury = await PIXI.Assets.loadBundle("welcome_screen");
+  tlacitka_textury = await PIXI.Assets.loadBundle("tlacitka");
 }
 
 async function load_hlavy() {

@@ -1,5 +1,5 @@
 import { lobby_textury, vw, vh } from "../main.js";
-import { getDarkener, getSlider } from "./utils.js";
+import { getDarkener, getSlider, simpleText, textButton } from "./utils.js";
 import { tictac } from "../games/tictac.js";
 import { slots } from "../games/slots.js";
 
@@ -51,16 +51,8 @@ async function createGameMenu(stage, game, onGameEntry) {
   Menu.eventMode = "static";
 
   const screen = textureToSprite("game_menu", 50, 50, 60);
-
-  const textBox = new PIXI.Text(game.name, {
-    fontFamily: "Arial",
-    fontSize: 50,
-    fill: 0x000000,
-    align: "center",
-  });
-  textBox.anchor.set(0.5);
-  textBox.x = 55 * vw;
-  textBox.y = 15 * vh;
+  const textBox = simpleText(55, 15, 50, game.name);
+  textBox.anchor.set(0.5, 0.5);
 
   const darkener = getDarkener();
   darkener.eventMode = "static";
@@ -80,6 +72,7 @@ async function createGameMenu(stage, game, onGameEntry) {
   }
 
   const online_btn = textureToSprite("online", 45, 25, 10, true);
+  Menu.addChild(textButton(10, 30, "Testuji", () => {}, true));
   const computer_btn = textureToSprite("computer", 65, 25, 10, true);
   const play_btn = textureToSprite("play", 55, 35, 10, true);
 
@@ -94,11 +87,13 @@ async function createGameMenu(stage, game, onGameEntry) {
   });
 
   // ----------------------------------------- Sazky
+  const betTxt = simpleText(40, 45, 30, "0");
   Menu.addChild(
-    getSlider(100, 100, 200, Menu, 30, 100, (val) => {
-      console.log(val);
+    getSlider(40 * vw, 50 * vh, 35 * vw, Menu, 0, 100, (val) => {
+      betTxt.text = Math.round(val);
     })
   );
+  Menu.addChild(betTxt);
 
   Menu.addChild(online_btn);
   Menu.addChild(computer_btn);

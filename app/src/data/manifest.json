@@ -123,6 +123,23 @@
       ]
     },
     {
+      "name": "tlacitka",
+      "assets": [
+        {
+          "name": "btn_normalni",
+          "srcs": "media/tlacitka/normalni.png"
+        },
+        {
+          "name": "btn_cervene",
+          "srcs": "media/tlacitka/cervene.png"
+        },
+        {
+          "name": "btn_modre",
+          "srcs": "media/tlacitka/modre.png"
+        }
+      ]
+    },
+    {
       "name": "welcome_screen",
       "assets": [
         {
