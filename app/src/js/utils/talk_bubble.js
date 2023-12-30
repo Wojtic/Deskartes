@@ -5,6 +5,7 @@ const charsPerLine = 100;
 const BORDER = 40;
 
 let hasInput = false;
+let input_text = "";
 
 export function createBubble(head_texture, text, type) {
   const Bubble = new PIXI.Container();
@@ -45,6 +46,8 @@ export function createBubble(head_texture, text, type) {
       if (type.type == "input") {
         if (!hasInput) {
           bindInput(textBox, 50, checkInput);
+        } else {
+          checkInput(input_text);
         }
       }
     } else {
@@ -61,7 +64,7 @@ export function createBubble(head_texture, text, type) {
 }
 
 async function bindInput(textBox, maxLength = 50, onenter) {
-  let input_text = "";
+  input_text = "";
   hasInput = true;
   textBox.text = input_text;
   window.addEventListener("keydown", handleKeydown);

@@ -71,25 +71,46 @@ async function createGameMenu(stage, game, onGameEntry) {
     });
   }
 
-  const online_btn = textureToSprite("online", 45, 25, 10, true);
-  Menu.addChild(textButton(10, 30, "Testuji", () => {}, true));
-  const computer_btn = textureToSprite("computer", 65, 25, 10, true);
-  const play_btn = textureToSprite("play", 55, 35, 10, true);
-
-  online_btn.on("pointerdown", () => {
-    online = true;
-  });
-  computer_btn.on("pointerdown", () => {
-    online = false;
-  });
-  play_btn.on("pointerdown", () => {
-    if (selectedGame) onGameEntry(selectedGame, online);
-  });
+  let computer_btn, set_computer;
+  const [online_btn, set_online] = textButton(
+    55,
+    32,
+    "Na síti",
+    () => {
+      online = true;
+      set_computer(false);
+    },
+    true,
+    0.3
+  );
+  [computer_btn, set_computer] = textButton(
+    85,
+    32,
+    "Proti počítači",
+    () => {
+      online = false;
+      set_online(false);
+    },
+    true,
+    0.3
+  );
+  set_online(online);
+  set_computer(!online);
+  const play_btn = textButton(
+    80,
+    50,
+    "Hrát!",
+    () => {
+      if (selectedGame) onGameEntry(selectedGame, online);
+    },
+    false,
+    0.3
+  )[0];
 
   // ----------------------------------------- Sazky
-  const betTxt = simpleText(40, 45, 30, "0");
+  const betTxt = simpleText(40, 30, 30, "0");
   Menu.addChild(
-    getSlider(40 * vw, 50 * vh, 35 * vw, Menu, 0, 100, (val) => {
+    getSlider(40 * vw, 35 * vh, 35 * vw, Menu, 0, 100, (val) => {
       betTxt.text = Math.round(val);
     })
   );

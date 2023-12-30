@@ -79,7 +79,17 @@ export function textButton(x, y, text, onClick, toggle = false, scale = 1) {
         newSprite.texture = tlacitka_textury["btn_normalni"];
       }
     });
-  return btn;
+  btn.scale.set(scale);
+  return [
+    btn,
+    (state) => {
+      if (toggle) {
+        on = state;
+        newSprite.texture =
+          tlacitka_textury[on ? "btn_cervene" : "btn_normalni"];
+      }
+    },
+  ];
 }
 
 export function getSlider(x, y, width, sprite, min, max, onUpdate) {

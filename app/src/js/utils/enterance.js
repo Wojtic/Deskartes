@@ -10,11 +10,6 @@ export async function createEnterance(onEnterance) {
   background.x = 0;
   background.y = 0;
 
-  /*const btn_enter = new PIXI.Sprite(enterance_textury["btn_enter"]);
-  btn_enter.anchor.set(0.5);
-  btn_enter.scale.set((30 * vw) / btn_enter.width);
-  btn_enter.x = 50 * vw;
-  btn_enter.y = 60 * vh;*/
   const btn_enter = textButton(
     50,
     60,
@@ -25,8 +20,8 @@ export async function createEnterance(onEnterance) {
         onEnterance(jmeno, isVIP);
       }),
     true,
-    3
-  );
+    1
+  )[0];
 
   Enterance.addChild(background);
   Enterance.addChild(btn_enter);
