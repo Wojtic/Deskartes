@@ -4,6 +4,7 @@ let online = true;
 let onTurn = true;
 let isX = true;
 let grid;
+let gridLHeight, gridLWidth;
 let opaque;
 
 let game = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -31,8 +32,9 @@ async function opponent() {
     let bestMoveIndex = findBestMove(game);
     game[bestMoveIndex] = -1;
     const char = await getChar(!isX ? "X" : "Y");
-    char.x = (((bestMoveIndex % 3) - 1) * 744) / 3;
-    char.y = (((bestMoveIndex - (bestMoveIndex % 3)) / 3 - 1) * 548) / 3;
+    char.x = (((bestMoveIndex % 3) - 1) * gridLWidth) / 3;
+    char.y =
+      (((bestMoveIndex - (bestMoveIndex % 3)) / 3 - 1) * gridLHeight) / 3;
     grid.addChild(char);
     if (isGameOver(game)) return endGame();
     turn();
@@ -134,10 +136,8 @@ function turn() {
     let coords = { x: getPos(pos["x"]), y: getPos(pos["y"]) };
     if (game[(coords.y + 1) * 3 + coords.x + 1] == 0) {
       opaque.alpha = 0.5;
-      opaque.x = coords.x * (744 / 3); // Musí se používat velikost před scale.set, je to na nic
-      opaque.y = coords.y * (548 / 3);
-      /*opaque.x = (coords.x * grid.width) / 3;
-      opaque.y = (coords.y * grid.height) / 3;*/
+      opaque.x = (coords.x * gridLWidth) / 3;
+      opaque.y = (coords.y * gridLHeight) / 3;
     }
   }
 
@@ -155,13 +155,11 @@ function turn() {
     let coords = { x: getPos(pos["x"]), y: getPos(pos["y"]) };
     if (game[(coords.y + 1) * 3 + coords.x + 1] == 0) {
       const char = await getChar(isX ? "X" : "Y");
-      char.x = (coords.x * 744) / 3;
-      char.y = (coords.y * 548) / 3;
+      char.x = (coords.x * gridLWidth) / 3;
+      char.y = (coords.y * gridLHeight) / 3;
       grid.addChild(char);
 
       game[(coords.y + 1) * 3 + coords.x + 1] = isX ? 1 : -1;
-      console.log(game);
-      console.log(evaluate(game));
 
       endTurn();
       grid.off("pointerdown", click);
@@ -197,6 +195,8 @@ export async function createTicTacThree(isOnline) {
   grid.x = 50 * vw;
   grid.y = 50 * vh;
   grid.interactive = true;
+  gridLHeight = grid.getLocalBounds().height;
+  gridLWidth = grid.getLocalBounds().width;
 
   opaque = await getChar(isX ? "X" : "Y");
   opaque.alpha = 0; // ještě nastavit scale

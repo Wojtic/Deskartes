@@ -19,13 +19,6 @@ let app = new PIXI.Application({
 });
 document.querySelector("#game").appendChild(app.view);
 
-window.onresize = () => {
-  // Na tohle bych se asi vykašlal, prostě jaké to načteš, takové to máš
-  let [newWidth, newHeight] = getWidthHeight();
-  if (newWidth != app.view.width) app.renderer.resize(newWidth, newHeight);
-  [vw, vh] = [app.view.width / 100, app.view.height / 100];
-};
-
 let hlavy_textury;
 let hlavy_okraje_textury;
 let hlasky;
