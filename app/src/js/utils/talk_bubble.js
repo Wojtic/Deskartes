@@ -47,6 +47,7 @@ export function createBubble(head_texture, text, type) {
         if (!hasInput) {
           bindInput(textBox, 50, checkInput);
         } else {
+          window.removeEventListener("keydown", handleKeydown);
           checkInput(input_text);
         }
       }
