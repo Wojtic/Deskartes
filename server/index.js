@@ -18,11 +18,19 @@ io.on("connection", (socket) => {
   socket.on("create bet", (game, bet) => {
     for (let i = 0; i < bets.length; i++) {
       if (bets[i].game == game) {
-        bets[i].bets.push({ value: bet, player: socket.username });
+        bets[i].bets.push({ value: bet, players: [socket.username] });
         break;
       }
     }
-    console.log(bets);
+  });
+
+  socket.on("get bets", (game, callback) => {
+    for (let i = 0; i < bets.length; i++) {
+      if (bets[i].game == game) {
+        callback(bets[i].bets);
+        break;
+      }
+    }
   });
 });
 

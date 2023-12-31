@@ -11,6 +11,7 @@ let game = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 export const tictac = {
   name: "Piškvorky",
+  id: "tictac",
   menu_items: [
     {
       texture: "tictac_three",

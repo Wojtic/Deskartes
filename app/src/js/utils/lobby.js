@@ -1,4 +1,4 @@
-import { lobby_textury, vw, vh } from "../main.js";
+import { lobby_textury, vw, vh, hrac, socket } from "../main.js";
 import { getDarkener, getSlider, simpleText, textButton } from "./utils.js";
 import { tictac } from "../games/tictac.js";
 import { slots } from "../games/slots.js";
@@ -44,6 +44,7 @@ export async function createLobby(onGameEntry) {
 
 let selectedGame;
 let online = true;
+let sliderBet = 0;
 
 async function createGameMenu(stage, game, onGameEntry) {
   selectedGame = game.menu_items[0].game;
@@ -101,20 +102,55 @@ async function createGameMenu(stage, game, onGameEntry) {
     50,
     "Hrát!",
     () => {
-      if (selectedGame) onGameEntry(selectedGame, online);
+      if (selectedGame) {
+        if (!online) onGameEntry(selectedGame, online);
+        else {
+          socket.emit("create bet", game.id, sliderBet);
+        }
+      }
     },
     false,
     0.3
   )[0];
 
   // ----------------------------------------- Sazky
-  const betTxt = simpleText(40, 30, 30, "0");
+  const betTxt = simpleText(40, 30, 30, sliderBet);
   Menu.addChild(
-    getSlider(40 * vw, 35 * vh, 35 * vw, Menu, 0, 100, (val) => {
-      betTxt.text = Math.round(val);
+    getSlider(40 * vw, 35 * vh, 35 * vw, Menu, 0, hrac.money, (val) => {
+      sliderBet = Math.round(val);
+      betTxt.text = sliderBet;
     })
   );
   Menu.addChild(betTxt);
+
+  let othersBets;
+  function updateBets() {
+    if (othersBets) othersBets.destroy();
+    socket.emit("get bets", game.id, (bets) => {
+      othersBets = new PIXI.Container();
+      let count = 0;
+      for (let i = 0; i < bets.length; i++) {
+        let bet = bets[i];
+        if (bet.players.length == 1 && bet.players[0] == hrac.jmeno) {
+          console.log("tahle je moje");
+          continue;
+        }
+        count++;
+        const valTxt = simpleText(40, 40 + 10 * count, 30, bet.value);
+        const playersTxt = simpleText(
+          50,
+          40 + 10 * count,
+          30,
+          bet.players.join(", ")
+        );
+        othersBets.addChild(valTxt);
+        othersBets.addChild(playersTxt);
+        Menu.addChild(othersBets);
+      }
+    });
+  }
+  updateBets();
+  // ----------------------------------------
 
   Menu.addChild(online_btn);
   Menu.addChild(computer_btn);

@@ -3,10 +3,12 @@ import { getWidthHeight } from "./utils/utils.js";
 import { createEnterance } from "./utils/enterance.js";
 import { createLobby } from "./utils/lobby.js";
 import { createTicTacThree } from "./games/tictac.js";
+import { getMoneyHUD } from "./utils/money.js";
 
 export let hrac = {
   jmeno: "",
   VIP: false,
+  money: 100,
 };
 export const socket = io("ws://localhost:8080");
 
@@ -64,8 +66,11 @@ async function main() {
 
     vstup.destroy();
     app.stage.addChild(lobby);
+    const moneyHUD = getMoneyHUD();
+    app.stage.addChild(moneyHUD);
   });
   app.stage.addChild(vstup);
+
   lobby_textury = await PIXI.Assets.loadBundle("lobby_screen");
   tictac_textury = await PIXI.Assets.loadBundle("tictac");
   await load_hlavy();
