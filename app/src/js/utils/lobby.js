@@ -57,7 +57,7 @@ async function createGameMenu(stage, game, onGameEntry) {
 
   const darkener = getDarkener();
   darkener.eventMode = "static";
-  darkener.on("pointerdown", () => Menu.destroy());
+  darkener.on("pointerdown", destroyMenu);
   Menu.addChild(darkener);
   Menu.addChild(screen);
   Menu.addChild(textBox); // Vyměnit všude za screen.addChild, ale rozbíjí to souřadnice TODO
@@ -106,12 +106,18 @@ async function createGameMenu(stage, game, onGameEntry) {
         if (!online) onGameEntry(selectedGame, online);
         else {
           socket.emit("create bet", game.id, sliderBet);
+          updateBets();
         }
       }
     },
     false,
     0.3
   )[0];
+
+  function destroyMenu() {
+    socket.emit("closed menu", game.id);
+    Menu.destroy();
+  }
 
   // ----------------------------------------- Sazky
   const betTxt = simpleText(40, 30, 30, sliderBet);
@@ -122,6 +128,9 @@ async function createGameMenu(stage, game, onGameEntry) {
     })
   );
   Menu.addChild(betTxt);
+  socket.on("bets updated", (changedGame) => {
+    if (game.id == changedGame) updateBets();
+  });
 
   let othersBets;
   function updateBets() {
@@ -131,10 +140,7 @@ async function createGameMenu(stage, game, onGameEntry) {
       let count = 0;
       for (let i = 0; i < bets.length; i++) {
         let bet = bets[i];
-        if (bet.players.length == 1 && bet.players[0] == hrac.jmeno) {
-          console.log("tahle je moje");
-          continue;
-        }
+        let own = bet.players.length == 1 && bet.players[0] == hrac.jmeno;
         count++;
         const valTxt = simpleText(40, 40 + 10 * count, 30, bet.value);
         const playersTxt = simpleText(
@@ -143,13 +149,25 @@ async function createGameMenu(stage, game, onGameEntry) {
           30,
           bet.players.join(", ")
         );
+        const bet_btn = textButton(
+          80,
+          50 + 10 * count,
+          "Vsadit!",
+          () => {
+            console.log("here " + i);
+          },
+          false,
+          0.2
+        )[0];
         othersBets.addChild(valTxt);
         othersBets.addChild(playersTxt);
+        if (bet.value <= hrac.money && !own) othersBets.addChild(bet_btn);
         Menu.addChild(othersBets);
       }
     });
   }
   updateBets();
+
   // ----------------------------------------
 
   Menu.addChild(online_btn);
