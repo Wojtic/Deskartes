@@ -103,7 +103,7 @@ async function createGameMenu(stage, game, onGameEntry) {
     "Hrát!",
     () => {
       if (selectedGame) {
-        if (!online) onGameEntry(selectedGame, online);
+        if (!online) onGameEntry(selectedGame, online, sliderBet);
         else {
           socket.emit("create bet", game.id, sliderBet);
           updateBets();

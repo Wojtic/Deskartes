@@ -3,14 +3,15 @@ import { getWidthHeight } from "./utils/utils.js";
 import { createEnterance } from "./utils/enterance.js";
 import { createLobby } from "./utils/lobby.js";
 import { createTicTacThree } from "./games/tictac.js";
-import { getMoneyHUD } from "./utils/money.js";
+import { getMoneyHUD, updateMoney } from "./utils/money.js";
 
 export let hrac = {
   jmeno: "",
   VIP: false,
   money: 100,
 };
-export const socket = io("ws://localhost:8080");
+//export const socket = io("ws://localhost:8080");
+export const socket = io("https://deskartes.lm.r.appspot.com");
 
 let [width, height] = getWidthHeight();
 export let [vw, vh] = [width / 100, height / 100];
@@ -59,7 +60,8 @@ async function main() {
     socket.emit("login", hrac.jmeno, hrac.VIP);
     const moneyHUD = getMoneyHUD();
 
-    const lobby = await createLobby(async (game, online, bet = 0) => {
+    const lobby = await createLobby(async (game, online, bet) => {
+      updateMoney(-bet);
       const hra = await game(online);
       lobby.destroy();
       app.stage.removeChild(moneyHUD);

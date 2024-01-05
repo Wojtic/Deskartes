@@ -1,8 +1,10 @@
-import { vw, vh, tictac_textury, socket } from "../main.js";
+import { vw, vh, tictac_textury, socket, hrac } from "../main.js";
+import { simpleText } from "../utils/utils.js";
 
 let online = true;
 let onTurn = true;
 let isX = true; // Proti pocitaci musi byt true, jinak pocitac pocita za svoje oba symboly
+let opponentName = "";
 let grid;
 let gridLHeight, gridLWidth;
 let opaque;
@@ -184,12 +186,40 @@ async function getChar(letter) {
 
 async function initOnline() {
   return new Promise((resolve) => {
-    return socket.emit("start tictac", (X, opponentName) => {
+    return socket.emit("start tictac", (X, opponentUnsetName) => {
       isX = X;
+      opponentName = opponentUnsetName;
       console.log(X, opponentName);
       resolve();
     });
   });
+}
+
+async function createPlayersHUD() {
+  const HUD = new PIXI.Graphics();
+  const X = await getChar("X");
+  const Y = await getChar("Y");
+  HUD.beginFill(0x999999);
+  HUD.drawRect(0, 0, 20 * vw, 20 * vh);
+  X.x = 2 * vw;
+  X.y = 5 * vh;
+  X.scale.set((3 * vh) / X.height);
+  Y.x = 2 * vw;
+  Y.y = 14 * vh;
+  Y.scale.set((3 * vh) / Y.height);
+  HUD.addChild(X);
+  HUD.addChild(Y);
+
+  HUD.addChild(simpleText(5, 2, 40, isX ? hrac.jmeno : opponentName));
+  HUD.addChild(
+    simpleText(
+      5,
+      12,
+      40,
+      online ? (isX ? opponentName : hrac.jmeno) : "Počítač"
+    )
+  );
+  return HUD;
 }
 
 export async function createTicTacThree(isOnline) {
@@ -197,6 +227,7 @@ export async function createTicTacThree(isOnline) {
   if (online) await initOnline();
   const Game = new PIXI.Container();
   const white = new PIXI.Graphics();
+  const HUD = await createPlayersHUD();
   white.beginFill(0xffffff);
   white.drawRect(0, 0, 100 * vw, 100 * vh);
   white.alpha = 1;
@@ -219,6 +250,7 @@ export async function createTicTacThree(isOnline) {
   Game.addChild(white);
   grid.addChild(opaque);
   Game.addChild(grid);
+  Game.addChild(HUD);
   return Game;
 }
 
