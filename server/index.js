@@ -34,6 +34,22 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("start game", (game, index) => {
+    for (let i = 0; i < bets.length; i++) {
+      if (bets[i].game == game) {
+        bets[i].bets[index].players.push(socket.username);
+        if (bets[i].bets[index].players.length == 2) {
+          // Tohle bude potreba zmenit!
+          io.emit("force game start", game, bets[i].bets[index].players, 69);
+          bets[i].bets.splice(index, 1);
+          socket.broadcast.emit("bets updated", game);
+        } else {
+        }
+      }
+      break;
+    }
+  });
+
   socket.on("closed menu", (game) => {
     for (let i = 0; i < bets.length; i++) {
       if (bets[i].game == game) {
@@ -51,6 +67,7 @@ io.on("connection", (socket) => {
           }
         }
       }
+      break;
     }
   });
 });

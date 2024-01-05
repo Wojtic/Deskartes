@@ -119,6 +119,12 @@ async function createGameMenu(stage, game, onGameEntry) {
     Menu.destroy();
   }
 
+  socket.on("force game start", (sentGame, players, bet) => {
+    if (sentGame != game.id) return;
+    if (!players.includes(hrac.jmeno)) return;
+    onGameEntry(selectedGame, true, bet);
+  });
+
   // ----------------------------------------- Sazky
   const betTxt = simpleText(40, 30, 30, sliderBet);
   Menu.addChild(
@@ -154,7 +160,7 @@ async function createGameMenu(stage, game, onGameEntry) {
           50 + 10 * count,
           "Vsadit!",
           () => {
-            console.log("here " + i);
+            socket.emit("start game", game.id, i);
           },
           false,
           0.2

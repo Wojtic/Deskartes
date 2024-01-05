@@ -57,16 +57,18 @@ async function main() {
     hrac.jmeno = jmeno;
     hrac.VIP = VIP;
     socket.emit("login", hrac.jmeno, hrac.VIP);
+    const moneyHUD = getMoneyHUD();
 
-    const lobby = await createLobby(async (game, online) => {
+    const lobby = await createLobby(async (game, online, bet = 0) => {
       const hra = await game(online);
       lobby.destroy();
+      app.stage.removeChild(moneyHUD);
       app.stage.addChild(hra);
+      app.stage.addChild(moneyHUD);
     });
 
     vstup.destroy();
     app.stage.addChild(lobby);
-    const moneyHUD = getMoneyHUD();
     app.stage.addChild(moneyHUD);
   });
   app.stage.addChild(vstup);

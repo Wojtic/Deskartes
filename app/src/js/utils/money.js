@@ -5,18 +5,18 @@ let textBox;
 export function getMoneyHUD() {
   const HUD = new PIXI.Container();
 
-  textBox = new PIXI.Text(hrac.money, {
+  textBox = new PIXI.Text(hrac.jmeno + ": " + hrac.money, {
     fontFamily: "Arial",
     fontSize: 30,
     fill: 0x000000,
     align: "center",
   });
-  textBox.x = 90 * vw;
-  textBox.y = 0;
+  textBox.x = 85.5 * vw;
+  textBox.y = 0.5 * vh;
 
   let rect = new PIXI.Graphics();
   rect.beginFill(0xffffff);
-  rect.drawRect(90 * vw, 0, 10 * vw, 5 * vh);
+  rect.drawRect(85 * vw, 0, 15 * vw, 5 * vh);
   rect.alpha = 1;
 
   HUD.addChild(rect);
@@ -27,5 +27,5 @@ export function getMoneyHUD() {
 
 export function updateMoney(delta) {
   hrac.money += delta;
-  textBox.text = hrac.money;
+  textBox.text = hrac.jmeno + ": " + hrac.money;
 }
