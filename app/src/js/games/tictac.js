@@ -1,8 +1,8 @@
-import { vw, vh, tictac_textury } from "../main.js";
+import { vw, vh, tictac_textury, socket } from "../main.js";
 
 let online = true;
 let onTurn = true;
-let isX = true;
+let isX = true; // Proti pocitaci musi byt true, jinak pocitac pocita za svoje oba symboly
 let grid;
 let gridLHeight, gridLWidth;
 let opaque;
@@ -182,8 +182,19 @@ async function getChar(letter) {
   return char;
 }
 
+async function initOnline() {
+  return new Promise((resolve) => {
+    return socket.emit("start tictac", (X, opponentName) => {
+      isX = X;
+      console.log(X, opponentName);
+      resolve();
+    });
+  });
+}
+
 export async function createTicTacThree(isOnline) {
   online = isOnline;
+  if (online) await initOnline();
   const Game = new PIXI.Container();
   const white = new PIXI.Graphics();
   white.beginFill(0xffffff);

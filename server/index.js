@@ -4,6 +4,7 @@ const io = require("socket.io")(http, {
 });
 
 const bets = [{ game: "tictac", bets: [] }];
+const games = [{ game: "tictac", games: [] }]; // Must have same order as bets
 
 io.on("connection", (socket) => {
   socket.on("login", (username, VIP) => {
@@ -40,13 +41,54 @@ io.on("connection", (socket) => {
         bets[i].bets[index].players.push(socket.username);
         if (bets[i].bets[index].players.length == 2) {
           // Tohle bude potreba zmenit!
-          io.emit("force game start", game, bets[i].bets[index].players, 69);
+          io.emit(
+            "force game start",
+            game,
+            bets[i].bets[index].players,
+            bets[i].bets[index].bet
+          );
+          games[i].games.push({
+            players: bets[i].bets[index].players,
+            bet: bets[i].bets[index].bet,
+          });
           bets[i].bets.splice(index, 1);
           socket.broadcast.emit("bets updated", game);
         } else {
         }
+        break;
       }
-      break;
+    }
+  });
+
+  socket.on("start tictac", (callback) => {
+    for (let i = 0; i < games.length; i++) {
+      if (games[i].game == "tictac") {
+        for (let j = 0; j < games[i].games.length; j++) {
+          if (games[i].games[j].players.includes(socket.username)) {
+            if (games[i].games[j].initialized) {
+              const isFirstX = games[i].games[j].firstIsX;
+              const isSocketFirst =
+                games[i].games[j].players.indexOf(socket.username) == 0;
+              const isSocketX = isSocketFirst ? isFirstX : !isFirstX;
+              return callback(
+                isSocketX,
+                games[i].games[j].players[isSocketFirst ? 1 : 0]
+              );
+            }
+            let isFirstX = Math.random() < 0.5;
+            games[i].games[j].firstIsX = isFirstX;
+            let isSocketFirst =
+              games[i].games[j].players.indexOf(socket.username) == 0;
+            let isSocketX = isSocketFirst ? isFirstX : !isFirstX;
+            callback(
+              isSocketX,
+              games[i].games[j].players[isSocketFirst ? 1 : 0]
+            );
+            return;
+          }
+        }
+        break;
+      }
     }
   });
 
