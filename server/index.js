@@ -1,7 +1,16 @@
-const http = require("http").createServer();
-const io = require("socket.io")(http, {
+const express = require("express");
+const app = express();
+const path = require("path");
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, {
   cors: { origin: "*" },
 });
+const port = process.env.PORT || 3000;
+
+server.listen(port, () => {
+  console.log("Server listening at port %d", port);
+});
+app.use(express.static(path.join(__dirname, "app")));
 
 const bets = [{ game: "tictac", bets: [] }];
 const games = [{ game: "tictac", games: [] }]; // Must have same order as bets
@@ -113,7 +122,3 @@ io.on("connection", (socket) => {
     }
   });
 });
-
-http.listen(process.env.PORT || 8080, () =>
-  console.log("Listening at http://localhost:8080")
-);
