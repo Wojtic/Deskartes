@@ -205,10 +205,11 @@ export async function createTicTacThree(isOnline) {
         opaque.y = (coords.y * gridLHeight) / 3;
       }
     }
-
+    let lastEmitedIndex = undefined;
     function endTurn(index) {
-      grid.off("mousemove", beginTurn);
-      if (online) {
+      grid.removeAllListeners();
+      if (online && lastEmitedIndex != index) {
+        lastEmitedIndex = index;
         socket.emit("tictac turn", index);
       }
       opponent();
@@ -227,7 +228,6 @@ export async function createTicTacThree(isOnline) {
         game[index] = isX ? 1 : -1;
 
         endTurn((coords.y + 1) * 3 + coords.x + 1);
-        grid.off("pointerdown", click);
       }
     }
 
