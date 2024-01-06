@@ -84,6 +84,7 @@ io.on("connection", (socket) => {
                 games[i].games[j].players[isSocketFirst ? 1 : 0]
               );
             }
+            games[i].games[j].initialized = true;
             let isFirstX = Math.random() < 0.5;
             games[i].games[j].firstIsX = isFirstX;
             let isSocketFirst =
@@ -99,6 +100,11 @@ io.on("connection", (socket) => {
         break;
       }
     }
+  });
+
+  socket.on("tictac turn", (index) => {
+    console.log("here");
+    socket.broadcast.emit("tictac turned", socket.username, index);
   });
 
   socket.on("closed menu", (game) => {

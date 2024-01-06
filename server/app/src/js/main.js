@@ -10,8 +10,7 @@ export let hrac = {
   VIP: false,
   money: 100,
 };
-//export const socket = io("ws://localhost:8080");
-export const socket = io(/*"https://deskartes.lm.r.appspot.com"*/);
+export const socket = io();
 
 let [width, height] = getWidthHeight();
 export let [vw, vh] = [width / 100, height / 100];
