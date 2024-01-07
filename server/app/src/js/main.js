@@ -59,18 +59,28 @@ async function main() {
     socket.emit("login", hrac.jmeno, hrac.VIP);
     const moneyHUD = getMoneyHUD();
 
-    const lobby = await createLobby(async (game, online, bet) => {
-      updateMoney(-bet);
-      const hra = await game(online);
-      lobby.destroy();
-      app.stage.removeChild(moneyHUD);
-      app.stage.addChild(hra);
+    async function startAll() {
+      const lobby = await createLobby(async (game, online, bet) => {
+        updateMoney(-bet);
+        const hra = await game(online, (winner) => {
+          if (winner) updateMoney(bet);
+          hra.eventMode = "static";
+          hra.on("pointerdown", (e) => {
+            app.stage.removeChildren();
+            startAll();
+          });
+        });
+        lobby.destroy();
+        app.stage.removeChild(moneyHUD);
+        app.stage.addChild(hra);
+        app.stage.addChild(moneyHUD);
+      });
+      app.stage.addChild(lobby);
       app.stage.addChild(moneyHUD);
-    });
+    }
 
     vstup.destroy();
-    app.stage.addChild(lobby);
-    app.stage.addChild(moneyHUD);
+    startAll();
   });
   app.stage.addChild(vstup);
 

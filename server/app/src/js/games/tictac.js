@@ -1,15 +1,6 @@
 import { vw, vh, tictac_textury, socket, hrac } from "../main.js";
 import { simpleText } from "../utils/utils.js";
 
-let online = true;
-let isX = true; // Proti pocitaci musi byt true, jinak pocitac pocita za svoje oba symboly
-let opponentName = "";
-let grid;
-let gridLHeight, gridLWidth;
-let opaque;
-
-let game = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-
 export const tictac = {
   name: "Piškvorky",
   id: "tictac",
@@ -25,7 +16,15 @@ export const tictac = {
   ],
 };
 
-export async function createTicTacThree(isOnline) {
+export async function createTicTacThree(isOnline, onEnd) {
+  let online = true;
+  let isX = true; // Proti pocitaci musi byt true, jinak pocitac pocita za svoje oba symboly
+  let opponentName = "";
+  let grid;
+  let gridLHeight, gridLWidth;
+  let opaque;
+
+  let game = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   async function opponent() {
     if (isGameOver(game)) return endGame();
     if (online) {
@@ -187,6 +186,14 @@ export async function createTicTacThree(isOnline) {
         .lineTo(gridLWidth / -3, gridLHeight / 3);
       grid.addChild(line);
     }
+
+    onEnd(
+      evaluate(game) == 0
+        ? true
+        : isX
+        ? evaluate(game) == 1
+        : evaluate(game) == -1
+    );
   }
 
   function turn() {

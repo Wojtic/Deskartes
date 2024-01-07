@@ -54,11 +54,11 @@ io.on("connection", (socket) => {
             "force game start",
             game,
             bets[i].bets[index].players,
-            bets[i].bets[index].bet
+            bets[i].bets[index].value
           );
           games[i].games.push({
             players: bets[i].bets[index].players,
-            bet: bets[i].bets[index].bet,
+            bet: bets[i].bets[index].value,
           });
           bets[i].bets.splice(index, 1);
           socket.broadcast.emit("bets updated", game);
