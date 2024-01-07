@@ -14,14 +14,14 @@ export const socket = io();
 
 let [width, height] = getWidthHeight();
 export let [vw, vh] = [width / 100, height / 100];
-let app = new PIXI.Application({
+export let app = new PIXI.Application({
   background: "#015876",
   width: width,
   height: height,
 });
 document.querySelector("#game").appendChild(app.view);
 
-let hlavy_textury;
+export let hlavy_textury;
 let hlavy_okraje_textury;
 let hlasky;
 export let enterance_textury;

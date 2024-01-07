@@ -62,15 +62,18 @@ async function createGameMenu(stage, game, onGameEntry) {
   Menu.addChild(screen);
   Menu.addChild(textBox); // Vyměnit všude za screen.addChild, ale rozbíjí to souřadnice TODO
 
+  let canBeOnline = false;
   for (let i = 0; i < game.menu_items.length; i++) {
     const item = game.menu_items[i];
     const item_btn = textureToSprite(item.texture, 28.5, 23 + 15 * i, 10, true);
+    canBeOnline = game.menu_items[i].possibleOnline;
     Menu.addChild(item_btn);
 
     item_btn.on("pointerdown", () => {
       selectedGame = item.game;
     });
   }
+  if (!canBeOnline) online = false;
 
   let computer_btn, set_computer;
   const [online_btn, set_online] = textButton(
@@ -176,8 +179,10 @@ async function createGameMenu(stage, game, onGameEntry) {
 
   // ----------------------------------------
 
-  Menu.addChild(online_btn);
-  Menu.addChild(computer_btn);
+  if (canBeOnline) {
+    Menu.addChild(online_btn);
+    Menu.addChild(computer_btn);
+  }
   Menu.addChild(play_btn);
   stage.addChild(Menu);
   return Menu;
