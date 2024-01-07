@@ -30,7 +30,6 @@ export async function createTicTacThree(isOnline) {
     if (isGameOver(game)) return endGame();
     if (online) {
       socket.on("tictac turned", async (oppName, index) => {
-        console.log("here", oppName, index);
         if (oppName != opponentName) return;
         const char = await getChar(!isX ? "X" : "Y");
         char.x = (((index % 3) - 1) * gridLWidth) / 3;
@@ -211,7 +210,6 @@ export async function createTicTacThree(isOnline) {
       grid.removeAllListeners();
       if (online && lastEmitedIndex != index) {
         lastEmitedIndex = index;
-        console.log("vysilam", index);
         socket.emit("tictac turn", index);
       }
       opponent();
@@ -253,7 +251,6 @@ export async function createTicTacThree(isOnline) {
       return socket.emit("start tictac", (X, opponentUnsetName) => {
         isX = X;
         opponentName = opponentUnsetName;
-        console.log(X, opponentName);
         resolve();
       });
     });
