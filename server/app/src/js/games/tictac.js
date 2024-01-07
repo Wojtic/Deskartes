@@ -133,6 +133,7 @@ export async function createTicTacThree(isOnline) {
 
   function endGame() {
     socket.off("tictac turned");
+    socket.emit("tictac end");
 
     let line = new PIXI.Graphics();
 

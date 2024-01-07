@@ -103,8 +103,21 @@ io.on("connection", (socket) => {
   });
 
   socket.on("tictac turn", (index) => {
-    console.log("here");
     socket.broadcast.emit("tictac turned", socket.username, index);
+  });
+
+  socket.on("tictac end", () => {
+    for (let i = 0; i < games.length; i++) {
+      if (games[i].game == "tictac") {
+        for (let j = 0; j < games[i].games.length; j++) {
+          if (games[i].games[j].players.includes(socket.username)) {
+            games[i].games.splice(j, 1);
+            return;
+          }
+        }
+        break;
+      }
+    }
   });
 
   socket.on("closed menu", (game) => {
