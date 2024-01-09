@@ -58,6 +58,10 @@
         {
           "name": "zdarek",
           "srcs": "media/hlavy/zdarek.png"
+        },
+        {
+          "name": "kalousova",
+          "srcs": "media/hlavy/kalousova.png"
         }
       ]
     },

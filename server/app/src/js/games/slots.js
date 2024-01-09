@@ -13,6 +13,7 @@ export const slots = {
 export async function createSlots(online, onEnd) {
   const Game = new PIXI.Container();
 
+  const BORDER = 400;
   const REEL_WIDTH = 160;
   const SYMBOL_SIZE = 150;
 
@@ -20,11 +21,11 @@ export async function createSlots(online, onEnd) {
   function onAssetsLoaded() {
     // Create different slot symbols.
     const slotTextures = [
-      hlavy_textury["filipik"],
-      hlavy_textury["filipik"],
-      hlavy_textury["filipik"],
-      hlavy_textury["filipik"],
-      hlavy_textury["filipik"],
+      hlavy_textury["zdarek"],
+      hlavy_textury["hovorka"],
+      hlavy_textury["kalousova"],
+      hlavy_textury["hruba"],
+      hlavy_textury["bustova"],
     ];
 
     // Build the reels
@@ -57,7 +58,7 @@ export async function createSlots(online, onEnd) {
           SYMBOL_SIZE / symbol.width,
           SYMBOL_SIZE / symbol.height
         );
-        symbol.x = Math.round((SYMBOL_SIZE - symbol.width) / 2);
+        symbol.x = Math.round((SYMBOL_SIZE - symbol.width) / 2) - BORDER;
         reel.symbols.push(symbol);
         rc.addChild(symbol);
       }
@@ -94,14 +95,14 @@ export async function createSlots(online, onEnd) {
       wordWrapWidth: 440,
     });
 
-    const playText = new PIXI.Text("Spin the wheels!", style);
+    const playText = new PIXI.Text("Roztoč to!", style);
     playText.x = Math.round((bottom.width - playText.width) / 2);
     playText.y =
       app.screen.height - margin + Math.round((margin - playText.height) / 2);
     bottom.addChild(playText);
 
     // Add header text
-    const headerText = new PIXI.Text("PIXI MONSTER SLOTS!", style);
+    const headerText = new PIXI.Text("Tady bude grafika", style);
     headerText.x = Math.round((top.width - headerText.width) / 2);
     headerText.y = Math.round((margin - headerText.height) / 2);
     top.addChild(headerText);
@@ -170,7 +171,7 @@ export async function createSlots(online, onEnd) {
               SYMBOL_SIZE / s.texture.width,
               SYMBOL_SIZE / s.texture.height
             );
-            s.x = Math.round((SYMBOL_SIZE - s.width) / 2);
+            s.x = Math.round((SYMBOL_SIZE - s.width) / 2) - BORDER;
           }
         }
       }
