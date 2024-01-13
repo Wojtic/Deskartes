@@ -1,7 +1,7 @@
-import { vw, vh } from "../main.js";
+import { vw, vh, tlacitka_textury } from "../main.js";
 import { getDarkener } from "./utils.js";
 
-const charsPerLine = 100;
+const charsPerLine = 70;
 const BORDER = 40;
 
 let hasInput = false;
@@ -14,7 +14,7 @@ export function createBubble(head_texture, text, type) {
   const hlava = new PIXI.Sprite(head_texture);
   hlava.scale.set((20 * vw) / hlava.width);
   hlava.x = BORDER / 2;
-  hlava.y = 100 * vh - rectHeight - hlava.height - BORDER / 2;
+  hlava.y = 100 * vh - hlava.height - BORDER;
 
   // https://pixijs.com/examples/text/pixi-text
   const textBox = new PIXI.Text(text, {
@@ -23,19 +23,20 @@ export function createBubble(head_texture, text, type) {
     fill: 0x000000,
     align: "center",
     wordWrap: true,
-    wordWrapWidth: 100 * vw - BORDER * 2,
+    wordWrapWidth: 80 * vw - BORDER * 2,
   });
-  textBox.x = BORDER;
+  textBox.x = 25 * vw;
   textBox.y = 100 * vh - rectHeight + BORDER;
 
-  let rect = new PIXI.Graphics();
-  rect.beginFill(0xffffff);
-  rect.drawRect(0, 100 * vh - rectHeight, 100 * vw, rectHeight);
-  rect.alpha = 1;
+  const bublina = new PIXI.Sprite(tlacitka_textury["bublina"]);
+  bublina.anchor.set(1, 1);
+  bublina.x = 100 * vw;
+  bublina.y = 100 * vh;
+  bublina.scale.set((90 * vw) / bublina.width, rectHeight / bublina.height);
 
   if (type && type.darken) Bubble.addChild(getDarkener());
 
-  Bubble.addChild(rect);
+  Bubble.addChild(bublina);
   Bubble.addChild(textBox);
   Bubble.addChild(hlava);
 
