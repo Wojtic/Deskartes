@@ -2,6 +2,7 @@ import { lobby_textury, vw, vh, hrac, socket } from "../main.js";
 import { getDarkener, getSlider, simpleText, textButton } from "./utils.js";
 import { tictac } from "../games/tictac.js";
 import { slots } from "../games/slots.js";
+import { merge } from "../games/merge.js";
 
 function textureToSprite(name, x, y, scale_x, clickable = false) {
   const newSprite = new PIXI.Sprite(lobby_textury[name]);
@@ -34,7 +35,9 @@ export async function createLobby(onGameEntry) {
   tbl_tictac.on("pointerdown", () =>
     createGameMenu(Lobby, tictac, onGameEntry)
   );
-  //tbl_roulette.on("pointerdown", () => createGameMenu(Lobby, "Ruleta"));
+  tbl_roulette.on("pointerdown", () =>
+    createGameMenu(Lobby, merge, onGameEntry)
+  );
   tbl_placeholder.on("pointerdown", () =>
     createGameMenu(Lobby, slots, onGameEntry)
   );

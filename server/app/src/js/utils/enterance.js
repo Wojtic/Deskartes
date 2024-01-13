@@ -37,7 +37,7 @@ function authenticate(stage, ondone) {
       type: "input",
       darken: true,
       text_auth: (text) => {
-        if (text.length > 1) {
+        if (["asdf", "yxcv", "qwer", "sdfg"].includes(text)) {
           ondone(text);
           return true;
         }

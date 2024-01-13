@@ -4,6 +4,7 @@ import { createEnterance } from "./utils/enterance.js";
 import { createLobby } from "./utils/lobby.js";
 import { createTicTacThree } from "./games/tictac.js";
 import { getMoneyHUD, updateMoney } from "./utils/money.js";
+import { mergeTest } from "./games/merge.js";
 
 export let hrac = {
   jmeno: "",
@@ -70,11 +71,21 @@ async function main() {
             startAll();
           });
         });
-        lobby.destroy();
-        app.stage.removeChild(moneyHUD);
-        app.stage.addChild(hra);
-        app.stage.addChild(moneyHUD);
+        if (hra == "merge") {
+          // Strašná prasárna
+
+          document.querySelector("#game").firstElementChild.style.display =
+            "none";
+          new p5(mergeTest, "game");
+          console.log("here");
+        } else {
+          lobby.destroy();
+          app.stage.removeChild(moneyHUD);
+          app.stage.addChild(hra);
+          app.stage.addChild(moneyHUD);
+        }
       });
+
       app.stage.addChild(lobby);
       app.stage.addChild(moneyHUD);
     }
