@@ -144,6 +144,7 @@ export async function createSlots(online, onEnd) {
     // Reels done handler.
     function reelsComplete() {
       running = false;
+      onEnd(Math.random() < 0.5);
     }
 
     // Listen for animate update.

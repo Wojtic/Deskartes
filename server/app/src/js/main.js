@@ -64,7 +64,7 @@ async function main() {
       const lobby = await createLobby(async (game, online, bet) => {
         updateMoney(-bet);
         const hra = await game(online, (winner) => {
-          if (winner) updateMoney(bet);
+          if (winner) updateMoney(2 * bet);
           if (hra != "merge") {
             hra.eventMode = "static";
             hra.on("pointerdown", (e) => {

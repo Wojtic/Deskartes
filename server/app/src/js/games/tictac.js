@@ -10,11 +10,6 @@ export const tictac = {
       game: createTicTacThree,
       possibleOnline: true,
     },
-    {
-      texture: "tictac_infinity",
-      game: createTicTacInfinity,
-      possibleOnline: true,
-    },
   ],
 };
 

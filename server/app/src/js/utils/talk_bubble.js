@@ -73,9 +73,11 @@ async function bindInput(textBox, maxLength = 50, onenter) {
   input_text = "";
   hasInput = true;
   textBox.text = input_text;
-  window.addEventListener("keydown", (e) =>
-    handleKeydown(e, textBox, onenter, maxLength)
-  );
+  window.remo;
+  function onCall(e) {
+    handleKeydown(e, textBox, onenter, maxLength);
+  }
+  window.addEventListener("keydown", onCall);
 }
 function handleKeydown(e, textBox, onenter, maxLength = 50) {
   if (e.key.length == 1 && input_text.length < maxLength) {
