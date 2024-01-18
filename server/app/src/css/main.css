@@ -15,9 +15,20 @@ body {
 
 #game canvas {
     background-image: url("../../media/prostredi/merge.png");
+    background-size: contain;
 }
 
 #game * {
     margin: 0 auto;
     display: block;
+}
+
+#myBoard {
+    margin: 5rem;
+    background-image: url("../../media/prostredi/chessboard.png");
+    background-size: contain;
+}
+
+#myBoard * {
+    background-color: transparent;
 }

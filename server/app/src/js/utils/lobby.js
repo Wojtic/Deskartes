@@ -3,6 +3,7 @@ import { getDarkener, getSlider, simpleText, textButton } from "./utils.js";
 import { tictac } from "../games/tictac.js";
 import { slots } from "../games/slots.js";
 import { merge } from "../games/merge.js";
+import { chess } from "../games/chess.js";
 
 function textureToSprite(name, x, y, scale_x, clickable = false) {
   const newSprite = new PIXI.Sprite(lobby_textury[name]);
@@ -18,29 +19,43 @@ function textureToSprite(name, x, y, scale_x, clickable = false) {
   return newSprite;
 }
 
+function table(x, y, scale_x, scale_y) {
+  const newSprite = new PIXI.Sprite(PIXI.Texture.WHITE);
+  newSprite.alpha = 0;
+  newSprite.scale.set(scale_x, scale_y);
+  newSprite.x = x * vw;
+  newSprite.y = y * vh;
+
+  newSprite.eventMode = "static";
+  newSprite.cursor = "pointer";
+  return newSprite;
+}
+
 export async function createLobby(onGameEntry) {
   const Lobby = new PIXI.Container();
 
   const background = textureToSprite("lobby", 50, 50, 100);
 
-  const tbl_tictac = textureToSprite("tbl_tictac", 20, 60, 30, true);
-  const tbl_roulette = textureToSprite("tbl_roulette", 60, 70, 30, true);
-  const tbl_placeholder = textureToSprite("tbl_placeholder", 80, 30, 30, true);
+  const tbl_tictac = table(30, 37, 20, 20);
+  const tbl_chess = table(70, 10, 30, 15);
+  const tbl_pool = table(65, 45, 40, 15);
+  const tbl_merge = table(0, 15, 25, 15);
+  const tbl_slots = table(35, 0, 30, 15);
 
   Lobby.addChild(background);
   Lobby.addChild(tbl_tictac);
-  Lobby.addChild(tbl_roulette);
-  Lobby.addChild(tbl_placeholder);
+  Lobby.addChild(tbl_chess);
+  Lobby.addChild(tbl_pool);
+  Lobby.addChild(tbl_merge);
+  Lobby.addChild(tbl_slots);
 
   tbl_tictac.on("pointerdown", () =>
     createGameMenu(Lobby, tictac, onGameEntry)
   );
-  tbl_roulette.on("pointerdown", () =>
-    createGameMenu(Lobby, merge, onGameEntry)
-  );
-  tbl_placeholder.on("pointerdown", () =>
-    createGameMenu(Lobby, slots, onGameEntry)
-  );
+  tbl_chess.on("pointerdown", () => createGameMenu(Lobby, chess, onGameEntry));
+  tbl_merge.on("pointerdown", () => createGameMenu(Lobby, merge, onGameEntry));
+  tbl_slots.on("pointerdown", () => createGameMenu(Lobby, slots, onGameEntry));
+  tbl_pool.on("pointerdown", () => createGameMenu(Lobby, merge, onGameEntry));
 
   return Lobby;
 }

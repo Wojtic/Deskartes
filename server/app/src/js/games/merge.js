@@ -61,7 +61,7 @@ export const mergeP5 = (p) => {
     fruitsdata[6].image = p.loadImage("./media/hlavy/bustova.png");
     fruitsdata[7].image = p.loadImage("./media/hlavy/janisova.png");
     fruitsdata[8].image = p.loadImage("./media/hlavy/beckova.png");
-    fruitsdata[9].image = p.loadImage("./media/hlavy/filipik.png");
+    fruitsdata[9].image = p.loadImage("./media/hlavy/zdarek.png");
   };
 
   p.setup = function () {
@@ -255,7 +255,7 @@ export const mergeP5 = (p) => {
             callOnEnd(true);
             callOnce = false;
           }
-        }, 3000);
+        }, 5000);
       }
 
       let pos = this.body.position;

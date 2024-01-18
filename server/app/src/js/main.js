@@ -47,13 +47,6 @@ async function load_hlavy() {
 async function main() {
   await load();
 
-  /* Smazat!
-  tictac_textury = await PIXI.Assets.loadBundle("tictac");
-  await load_hlavy();
-  let piskovrky = await createTicTacThree(true);
-  app.stage.addChild(piskovrky);
-  */
-
   const vstup = await createEnterance(async (jmeno, VIP) => {
     hrac.jmeno = jmeno;
     hrac.VIP = VIP;
@@ -65,13 +58,14 @@ async function main() {
         updateMoney(-bet);
         const hra = await game(online, (winner) => {
           if (winner) updateMoney(2 * bet);
-          if (hra != "merge") {
+          if (hra != "merge" && hra != "chess") {
             hra.eventMode = "static";
             hra.on("pointerdown", (e) => {
               app.stage.removeChildren();
               startAll();
             });
           } else {
+            document.querySelector("#game").style.display = "inherit";
             document.querySelector("#game").firstElementChild.style.display =
               "inherit";
           }
@@ -82,6 +76,8 @@ async function main() {
           document.querySelector("#game").firstElementChild.style.display =
             "none";
           new p5(mergeP5, "game");
+        } else if (hra == "chess") {
+          document.querySelector("#game").style.display = "none";
         } else {
           lobby.destroy();
           app.stage.removeChild(moneyHUD);
