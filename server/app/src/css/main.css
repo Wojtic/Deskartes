@@ -13,6 +13,10 @@ body {
     height: 100vh;
 }
 
+#game canvas {
+    background-image: url("../../media/prostredi/merge.png");
+}
+
 #game * {
     margin: 0 auto;
     display: block;

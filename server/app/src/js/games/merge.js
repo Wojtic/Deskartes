@@ -11,7 +11,10 @@ export const merge = {
   ],
 };
 
-export const mergeTest = (p) => {
+let callOnEnd;
+
+export const mergeP5 = (p) => {
+  let callOnce = true;
   const canvasBox = document.getElementById("game");
 
   let fruitsdata = [
@@ -104,17 +107,8 @@ export const mergeTest = (p) => {
       checkCollisions(fruits);
     }
 
-    displayscore();
-
     if (findObjectWithLowestY(fruits) < 200) {
       drawDashedLine();
-    }
-
-    if (findObjectWithLowestY(fruits) < 150) {
-      // gameover
-      // disable controls
-      // playing = false
-      // show gae over message
     }
   };
 
@@ -201,17 +195,6 @@ export const mergeTest = (p) => {
     return { x: middleX, y: middleY };
   }
 
-  function displayscore() {
-    p.stroke("#765827");
-    p.strokeWeight(4);
-
-    p.textSize(40);
-    p.fill("yellow");
-
-    p.textAlign(p.LEFT, p.CENTER);
-    p.text(score, 50, 70);
-  }
-
   function drawDashedLine() {
     p.stroke("#D90631");
     p.strokeWeight(5);
@@ -250,6 +233,7 @@ export const mergeTest = (p) => {
 
       this.isfixed = true;
       this.radus = this.size;
+      this.lastAboveLine = undefined;
       this.x = handpos[0];
       this.y = handpos[1];
       this.body = Bodies.circle(this.x, this.y, this.radus);
@@ -264,9 +248,33 @@ export const mergeTest = (p) => {
         Matter.Body.setPosition(this.body, { x: this.x, y: this.y });
       }
 
+      if (this.level == 9) {
+        setTimeout(() => {
+          if (callOnce) {
+            p.remove();
+            callOnEnd(true);
+            callOnce = false;
+          }
+        }, 3000);
+      }
+
       let pos = this.body.position;
       const angle = this.body.angle;
       const radius = this.body.circleRadius;
+
+      if (!this.isfixed && pos.y < 150) {
+        if (this.lastAboveLine) {
+          if (new Date().getTime() - this.lastAboveLine.getTime() > 3000) {
+            console.log("game over");
+            p.remove();
+            callOnEnd(false);
+          }
+        } else {
+          this.lastAboveLine = new Date();
+        }
+      } else {
+        this.lastAboveLine = undefined;
+      }
 
       p.push();
       p.translate(pos.x, pos.y);
@@ -313,6 +321,6 @@ export const mergeTest = (p) => {
 };
 
 export async function createMerge(online, onEnd) {
-  const Game = new PIXI.Container();
+  callOnEnd = onEnd;
   return "merge";
 }
