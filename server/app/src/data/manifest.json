@@ -144,6 +144,43 @@
         {
           "name": "bublina",
           "srcs": "media/tlacitka/bublina.png"
+        },
+        {
+          "name": "slots",
+          "srcs": "media/prostredi/slots.png"
+        }
+      ]
+    },
+    {
+      "name": "ovoce",
+      "assets": [
+        {
+          "name": "ananas",
+          "srcs": "media/ovoce/ananas.png"
+        },
+        {
+          "name": "boruvka",
+          "srcs": "media/ovoce/boruvka.png"
+        },
+        {
+          "name": "jablko",
+          "srcs": "media/ovoce/jablko.png"
+        },
+        {
+          "name": "kiwi",
+          "srcs": "media/ovoce/kiwi.png"
+        },
+        {
+          "name": "meloun",
+          "srcs": "media/ovoce/meloun.png"
+        },
+        {
+          "name": "pomeranc",
+          "srcs": "media/ovoce/pomeranc.png"
+        },
+        {
+          "name": "coin",
+          "srcs": "media/ovoce/coin.png"
         }
       ]
     },
@@ -157,10 +194,6 @@
         {
           "name": "filipik",
           "srcs": "media/hlavy_okraj/filipik.png"
-        },
-        {
-          "name": "btn_enter",
-          "srcs": "media/tlacitka/vstup.png"
         }
       ]
     },
@@ -172,40 +205,8 @@
           "srcs": "media/prostredi/lobby.png"
         },
         {
-          "name": "tbl_tictac",
-          "srcs": "media/tlacitka/tbl_tictac.png"
-        },
-        {
-          "name": "tbl_roulette",
-          "srcs": "media/tlacitka/tbl_roulette.png"
-        },
-        {
-          "name": "tbl_placeholder",
-          "srcs": "media/tlacitka/tbl_placeholder.png"
-        },
-        {
           "name": "game_menu",
           "srcs": "media/tlacitka/game_menu.png"
-        },
-        {
-          "name": "online",
-          "srcs": "media/tlacitka/online.png"
-        },
-        {
-          "name": "computer",
-          "srcs": "media/tlacitka/computer.png"
-        },
-        {
-          "name": "play",
-          "srcs": "media/tlacitka/play.png"
-        },
-        {
-          "name": "tictac_three",
-          "srcs": "media/tlacitka/tictac_three.png"
-        },
-        {
-          "name": "tictac_infinity",
-          "srcs": "media/tlacitka/tictac_infinity.png"
         }
       ]
     },
@@ -223,6 +224,14 @@
         {
           "name": "Y",
           "srcs": "media/hlavy_okraj/filipik.png"
+        },
+        {
+          "name": "X2",
+          "srcs": "media/ovoce/meloun.png"
+        },
+        {
+          "name": "Y2",
+          "srcs": "media/ovoce/kiwi.png"
         }
       ]
     }

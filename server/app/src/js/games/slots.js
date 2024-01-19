@@ -1,7 +1,15 @@
-import { vw, vh, hlavy_textury, app } from "../main.js";
+import {
+  vw,
+  vh,
+  hlavy_textury,
+  app,
+  hrac,
+  ovoce_textury,
+  tlacitka_textury,
+} from "../main.js";
 
 export const slots = {
-  name: "Sloty?",
+  name: "Sloty",
   menu_items: [
     {
       texture: "slots",
@@ -13,20 +21,30 @@ export const slots = {
 export async function createSlots(online, onEnd) {
   const Game = new PIXI.Container();
 
-  const BORDER = 400;
-  const REEL_WIDTH = 160;
+  const BORDER = 200;
+  const REEL_WIDTH = 200;
   const SYMBOL_SIZE = 150;
 
   // onAssetsLoaded handler builds the example.
   function onAssetsLoaded() {
     // Create different slot symbols.
-    const slotTextures = [
-      hlavy_textury["zdarek"],
-      hlavy_textury["hovorka"],
-      hlavy_textury["kalousova"],
-      hlavy_textury["hruba"],
-      hlavy_textury["bustova"],
-    ];
+    if (hrac.VIP) {
+      var slotTextures = [
+        hlavy_textury["zdarek"],
+        hlavy_textury["hovorka"],
+        hlavy_textury["kalousova"],
+        hlavy_textury["hruba"],
+        hlavy_textury["bustova"],
+      ];
+    } else {
+      var slotTextures = [
+        ovoce_textury["kiwi"],
+        ovoce_textury["meloun"],
+        ovoce_textury["ananas"],
+        ovoce_textury["jablko"],
+        ovoce_textury["boruvka"],
+      ];
+    }
 
     // Build the reels
     const reels = [];
@@ -99,16 +117,17 @@ export async function createSlots(online, onEnd) {
     playText.x = Math.round((bottom.width - playText.width) / 2);
     playText.y =
       app.screen.height - margin + Math.round((margin - playText.height) / 2);
-    bottom.addChild(playText);
-
-    // Add header text
-    const headerText = new PIXI.Text("Tady bude grafika", style);
-    headerText.x = Math.round((top.width - headerText.width) / 2);
-    headerText.y = Math.round((margin - headerText.height) / 2);
-    top.addChild(headerText);
 
     Game.addChild(top);
     Game.addChild(bottom);
+
+    const backdrop = new PIXI.Sprite(tlacitka_textury["slots"]);
+    backdrop.x = 0;
+    backdrop.y = -22;
+    backdrop.scale.set(0.6, 0.84);
+    Game.addChild(backdrop);
+
+    Game.addChild(playText);
 
     // Set the interactivity.
     bottom.interactive = true;

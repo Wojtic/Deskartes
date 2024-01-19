@@ -16,15 +16,16 @@ export const socket = io();
 let [width, height] = getWidthHeight();
 export let [vw, vh] = [width / 100, height / 100];
 export let app = new PIXI.Application({
-  background: "#015876",
+  background: "#ffffff",
   width: width,
   height: height,
 });
 document.querySelector("#game").appendChild(app.view);
 
 export let hlavy_textury;
-let hlavy_okraje_textury;
-let hlasky;
+export let hlavy_okraje_textury;
+export let ovoce_textury;
+export let hlasky;
 export let enterance_textury;
 export let lobby_textury;
 export let tlacitka_textury;
@@ -35,6 +36,7 @@ async function load() {
   await PIXI.Assets.init({ manifest: "src/data/manifest.json" });
   enterance_textury = await PIXI.Assets.loadBundle("welcome_screen");
   tlacitka_textury = await PIXI.Assets.loadBundle("tlacitka");
+  ovoce_textury = await PIXI.Assets.loadBundle("ovoce");
 }
 
 async function load_hlavy() {
@@ -42,6 +44,18 @@ async function load_hlavy() {
   hlavy_okraje_textury = await PIXI.Assets.loadBundle("hlavy_okraje");
   hlasky = await fetch("src/data/hlasky.json");
   hlasky = await hlasky.json();
+}
+
+var audio1 = new Audio("../media/audio/kasino.mp3");
+var audio2 = new Audio("../media/audio/dvojka.mp3");
+function zahraj1() {
+  audio1.play();
+  setTimeout(zahraj2, 40000);
+}
+
+function zahraj2() {
+  audio2.play();
+  setTimeout(zahraj1, 45000);
 }
 
 async function main() {
@@ -52,6 +66,7 @@ async function main() {
     hrac.VIP = VIP;
     socket.emit("login", hrac.jmeno, hrac.VIP);
     const moneyHUD = getMoneyHUD();
+    zahraj1();
 
     async function startAll() {
       const lobby = await createLobby(async (game, online, bet) => {

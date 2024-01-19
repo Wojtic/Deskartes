@@ -1,9 +1,19 @@
-import { lobby_textury, vw, vh, hrac, socket } from "../main.js";
+import {
+  lobby_textury,
+  vw,
+  vh,
+  hrac,
+  socket,
+  hlasky,
+  hlavy_textury,
+  app,
+} from "../main.js";
 import { getDarkener, getSlider, simpleText, textButton } from "./utils.js";
 import { tictac } from "../games/tictac.js";
 import { slots } from "../games/slots.js";
 import { merge } from "../games/merge.js";
 import { chess } from "../games/chess.js";
+import { createBubble } from "./talk_bubble.js";
 
 function textureToSprite(name, x, y, scale_x, clickable = false) {
   const newSprite = new PIXI.Sprite(lobby_textury[name]);
@@ -55,7 +65,13 @@ export async function createLobby(onGameEntry) {
   tbl_chess.on("pointerdown", () => createGameMenu(Lobby, chess, onGameEntry));
   tbl_merge.on("pointerdown", () => createGameMenu(Lobby, merge, onGameEntry));
   tbl_slots.on("pointerdown", () => createGameMenu(Lobby, slots, onGameEntry));
-  tbl_pool.on("pointerdown", () => createGameMenu(Lobby, merge, onGameEntry));
+  tbl_pool.on("pointerdown", () => {
+    if (hrac.VIP) {
+      const hlaska = hlasky[Math.floor(Math.random() * hlasky.length)];
+      let bublina = createBubble(hlavy_textury[hlaska.person], hlaska.text, "");
+      app.stage.addChild(bublina);
+    }
+  });
 
   return Lobby;
 }
@@ -70,7 +86,7 @@ async function createGameMenu(stage, game, onGameEntry) {
   Menu.eventMode = "static";
 
   const screen = textureToSprite("game_menu", 50, 50, 60);
-  const textBox = simpleText(55, 15, 50, game.name);
+  const textBox = simpleText(55, 18, 50, game.name);
   textBox.anchor.set(0.5, 0.5);
 
   const darkener = getDarkener();

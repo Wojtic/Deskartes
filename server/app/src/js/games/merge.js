@@ -1,4 +1,4 @@
-import { vw, vh, hlavy_textury, app } from "../main.js";
+import { vw, vh, hlavy_textury, app, hrac } from "../main.js";
 
 export const merge = {
   name: "Mergefruit",
@@ -50,19 +50,33 @@ export const mergeP5 = (p) => {
   let handpos = [canvasBox.offsetWidth / 2, 70];
 
   let playing = true;
-
-  p.preload = function () {
-    fruitsdata[0].image = p.loadImage("./media/hlavy/matousek.png");
-    fruitsdata[1].image = p.loadImage("./media/hlavy/hruba.png");
-    fruitsdata[2].image = p.loadImage("./media/hlavy/filipik.png");
-    fruitsdata[3].image = p.loadImage("./media/hlavy/korbeliusova.png");
-    fruitsdata[4].image = p.loadImage("./media/hlavy/velensky.png");
-    fruitsdata[5].image = p.loadImage("./media/hlavy/akolar.png");
-    fruitsdata[6].image = p.loadImage("./media/hlavy/bustova.png");
-    fruitsdata[7].image = p.loadImage("./media/hlavy/janisova.png");
-    fruitsdata[8].image = p.loadImage("./media/hlavy/beckova.png");
-    fruitsdata[9].image = p.loadImage("./media/hlavy/zdarek.png");
-  };
+  if (hrac.VIP) {
+    p.preload = function () {
+      fruitsdata[0].image = p.loadImage("./media/hlavy/matousek.png");
+      fruitsdata[1].image = p.loadImage("./media/hlavy/hruba.png");
+      fruitsdata[2].image = p.loadImage("./media/hlavy/filipik.png");
+      fruitsdata[3].image = p.loadImage("./media/hlavy/korbeliusova.png");
+      fruitsdata[4].image = p.loadImage("./media/hlavy/velensky.png");
+      fruitsdata[5].image = p.loadImage("./media/hlavy/akolar.png");
+      fruitsdata[6].image = p.loadImage("./media/hlavy/bustova.png");
+      fruitsdata[7].image = p.loadImage("./media/hlavy/janisova.png");
+      fruitsdata[8].image = p.loadImage("./media/hlavy/beckova.png");
+      fruitsdata[9].image = p.loadImage("./media/hlavy/zdarek.png");
+    };
+  } else {
+    p.preload = function () {
+      fruitsdata[0].image = p.loadImage("./media/ovoce/logo.png");
+      fruitsdata[1].image = p.loadImage("./media/ovoce/meloun.png");
+      fruitsdata[2].image = p.loadImage("./media/ovoce/coin.png");
+      fruitsdata[3].image = p.loadImage("./media/ovoce/boruvka.png");
+      fruitsdata[4].image = p.loadImage("./media/ovoce/jablko.png");
+      fruitsdata[5].image = p.loadImage("./media/ovoce/kiwi.png");
+      fruitsdata[6].image = p.loadImage("./media/ovoce/pomeranc.png");
+      fruitsdata[7].image = p.loadImage("./media/ovoce/ananas.png");
+      fruitsdata[8].image = p.loadImage("./media/ovoce/meloun.png");
+      fruitsdata[9].image = p.loadImage("./media/ovoce/logo.png");
+    };
+  }
 
   p.setup = function () {
     p.createCanvas(50 * vh, 100 * vh);

@@ -1,9 +1,13 @@
-import { vw, vh, hrac } from "../main.js";
+import { vw, vh, hrac, ovoce_textury } from "../main.js";
 
 let textBox;
 
 export function getMoneyHUD() {
   const HUD = new PIXI.Container();
+  const icon = new PIXI.Sprite(ovoce_textury["coin"]);
+  icon.x = 97.5 * vw;
+  icon.y = 0.2 * vh;
+  icon.scale.set(0.09);
 
   textBox = new PIXI.Text(hrac.jmeno + ": " + hrac.money, {
     fontFamily: "Arial",
@@ -21,6 +25,7 @@ export function getMoneyHUD() {
 
   HUD.addChild(rect);
   HUD.addChild(textBox);
+  HUD.addChild(icon);
 
   return HUD;
 }

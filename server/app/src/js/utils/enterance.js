@@ -16,7 +16,9 @@ export async function createEnterance(onEnterance) {
     "Vstoupit",
     () =>
       authenticate(Enterance, (jmeno) => {
-        let isVIP = jmeno == "abc";
+        let isVIP =
+          jmeno[0] == jmeno[0].toUpperCase() &&
+          jmeno[jmeno.length - 1] == jmeno[jmeno.length - 1].toUpperCase();
         onEnterance(jmeno, isVIP);
       }),
     true,
@@ -32,12 +34,12 @@ export async function createEnterance(onEnterance) {
 function authenticate(stage, ondone) {
   const bublina = createBubble(
     enterance_textury["filipik"],
-    "Nebuďte slušnej, řekněte jméno! (TODO)",
+    "Hlavně se nezapomeňte podepsat!",
     {
       type: "input",
       darken: true,
       text_auth: (text) => {
-        if (["asdf", "yxcv", "qwer", "sdfg"].includes(text)) {
+        if (text.length > 2) {
           ondone(text);
           return true;
         }

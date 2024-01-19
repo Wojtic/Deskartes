@@ -245,7 +245,9 @@ export async function createTicTacThree(isOnline, onEnd) {
   }
 
   async function getChar(letter) {
-    const char = new PIXI.Sprite(tictac_textury[letter]);
+    const char = new PIXI.Sprite(
+      tictac_textury[letter + (hrac.VIP ? "" : "2")]
+    );
     char.scale.set((20 * vh) / char.height);
     char.anchor.set(0.5);
     return char;
@@ -269,10 +271,15 @@ export async function createTicTacThree(isOnline, onEnd) {
     HUD.drawRect(0, 0, 20 * vw, 20 * vh);
     X.x = 2 * vw;
     X.y = 5 * vh;
-    X.scale.set((3 * vh) / X.height);
     Y.x = 2 * vw;
     Y.y = 14 * vh;
-    Y.scale.set((3 * vh) / Y.height);
+    if (hrac.VIP) {
+      X.scale.set((3 * vh) / X.height);
+      Y.scale.set((3 * vh) / Y.height);
+    } else {
+      X.scale.set(0.1);
+      Y.scale.set(0.01);
+    }
     HUD.addChild(X);
     HUD.addChild(Y);
 
