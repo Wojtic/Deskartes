@@ -124,7 +124,7 @@ export async function createSlots(online, onEnd) {
     const backdrop = new PIXI.Sprite(tlacitka_textury["slots"]);
     backdrop.x = 0;
     backdrop.y = -22;
-    backdrop.scale.set(0.6, 0.84);
+    backdrop.scale.set(0.72, 1);
     Game.addChild(backdrop);
 
     Game.addChild(playText);
